@@ -7,23 +7,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container">
-
-       <img class="img-fluid" src="https://24a440ba-b8a2-422a-987a-22a68cdaea84-00-1s7wlgtx009ih.pike.replit.dev/static/s2logo.png" width="50px", height="50px">
-      <h1 class="text-center">S2 Logistics </h1>
-
-
-
-      <br>
-      <p>
-        <b><u>About Us</u></b> <br>
+    {% include 'header.html' %}
+    <img src="static/delivery5.jpg" width="100%">
+    <div class="container"> <br> <br>
+      <b><h1 class="text-center">S2 Logistics </h1></b>
+ 
+      <div class="row" style="padding-top:50px; padding-bottom:100px">
+        <div class="col-6">
+      <img src="static/banner.jpg" style="width:100%;border-radius:15px">
+        </div>
+        <div class="col-6">
+      <p class="lead">
         S2 Logistics is a well-known transportation & logistics service provider having its presence at Delhi & NCR, Bangalore, Mumbai & Bhiwandi and Hyderabad. We have a network of experienced & skilled people that help us to cover these locations and its surrounding areas like no other transport/logistics company. We are an enlisted logistics partner of Amazon India to provide transportation service to sellers registered for FBA facilities.
         <br><br>
         s2logistics is the fastest growing fully-integrated well known transport company in India . We aim to build the operating system for ecommerce, through a combination of world-class infrastructure, logistics operations of the highest quality and cutting-edge engineering and technology capabilities.
       </p>
+          <a href="https://s2logistics.in/about/" class="btn btn-primary btn-lg">Read More</a>
+      </div>
+      </div>
 
-      <button>sign-in/sign-up</button>
-      <button>Contact us</button>
+      <div class="row" style="padding-top:100px; padding-bottom:50px">
+        <div class="col-6">
+          <h4>Why choose us?</h4>
+          <b><h2>We Aim to Contribute Well</h2></b>
+          <h3>Fast Transportion Service</h3>
+          <h5>We believe in providing the best solutions to our customers for which our teams keep on working day-night to come up with various options which can benefit their interests.</h5>
+          <h3>Safety and Reliability</h3>
+          <h5>We believe in providing the reliable transportation service that guarantees safety.</h5>
+          <h3>Shipping in Domestic</h3>
+          <h5>We are one of the best domestic courier services in India, We offers all these facilities and more to ensure that customers benefit from their agile domestic services.</h5>
+        </div>
+        <div class="col-6">
+          <img src="static/warehouse.jpg" style="width:100%;border-radius:15px; padding:10px; margin:10px">
+        </div>
+      
+      <div style="margin:10px">
+      <br><br>
+      <b>Interested in working with us? 
+      <br>Mail us at: <a href="mailto:mail@s2logistics.co.in?subject=Requesting%20a%20quote">mail@s2logistics.co.in</a>, <a href="mailto:mail.s2logistics@gmail.com?subject=Requesting%20a%20quote">mail.s2logistics@gmail.com</a>
+
+      <br>
+        or call us at: <u>18002120212</u>, <u>011- 46082229</u>
+      </div>
      </div>
+    {% include 'footer.html' %}
   </body>
 </html>
