@@ -9,6 +9,7 @@ firebase_admin.initialize_app(cred)
 db=db.reference(url='https://s2log-f75ab-default-rtdb.asia-southeast1.firebasedatabase.app')
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'asbeccdreeft'
 
 @app.route("/")
 def hello_world():
