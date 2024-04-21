@@ -1,77 +1,68 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>
-      Services - Express Parcel
-    </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body>
-    {% include 'header.html' %}
-    <div class="container">
+{% extends 'home.html' %}
 
-      <div class="row" style="padding:50px">
-        <div class="col-3">
-          <a href="/services/ead" class="btn btn-outline-primary me-2" style="padding-right:50px; padding-left:50px">
-          <h5 >E.A.D</h5></a>
-        </div>
+{% block title %}
+S2 Services - Express Parcel
+{% endblock %}
 
-        <div class="col-3">
-          <a href="/services/truck_freight" class="btn btn-outline-primary me-2">
-          <h5>Truckload Freight</h5></a>
-        </div>
-
-        <div class="col-3">
-          <a href="/services/ptf" class="btn btn-outline-primary me-2">
-          <h5>Partial-Truckload Freight</h5></a>
-        </div>
-
-        <div class="col-3">
-          <a href="/services/scs" class="btn btn-outline-primary me-2">
-          <h5>Supply Chain Services</h5></a>
-        </div>
+{% block content %}
+  <div class="container">
+    <div class="row" style="padding:50px">
+      <div class="col-3">
+        <a href="/services/ead" class="btn btn-outline-primary me-2" style="padding-right:50px; padding-left:50px">
+        <h5 >E.A.D</h5></a>
       </div>
 
-      <div class="row">
-        <div class="col-6" style="padding-bottom:50px">
-          <img src="/static/box_wrap.jpg" height="500px" width="100%">
-        </div>
-        <div class="col-6" style="padding-bottom:50px">
-          <img src="/static/sorting.jpg" height="500px" width="100%">
-        </div>
+      <div class="col-3">
+        <a href="/services/truck_freight" class="btn btn-outline-primary me-2">
+        <h5>Truckload Freight</h5></a>
       </div>
 
-      <div class="row">
-        <div class="col-6">
+      <div class="col-3">
+        <a href="/services/ptf" class="btn btn-outline-primary me-2">
+        <h5>Partial-Truckload Freight</h5></a>
+      </div>
 
-          <div class="row">
-            <div class="col-6">
-              <b><h2>We Cover Pan India</h2></b>
-              <h1>158+</h1>
-              <h6>International Gateways</h6>
-            </div>
-            <div class="col-6">
-              <b><h2>We Handle</h2></b>
-              <h1>30k</h1>
-              <h6>Tons Per Month</h6>
-            </div>
-          </div>
-
-          <div class="text-center" style="padding:15px">
-          <a href="/contact" class="btn btn-primary" style="padding:15px"><b>Work With Us</b></a>
-          </div>
-        </div>
-        
-        <div class="col-6">
-          <h3>EXPRESS PARCEL</h3>
-          <p>Our express parcel delivery network services over 18000 pin codes in India. It can handle consignments of up to 10 kilograms with same-day and next-day capabilities and 48-96 hour deliveries for long-distance orders. We also offer heavy goods service comprising the warehousing and delivery of heavy goods, such as large electrical goods, or white goods, furniture and sports equipment, supported by our extensive pan-India network and PTL services. Additionally, we extend our express parcel services for domestic shipping, through s2logistics. Direct to individual consumers from the comfort of their homes.</p>
-          <br>
-          
-        </div>
+      <div class="col-3">
+        <a href="/services/scs" class="btn btn-outline-primary me-2">
+        <h5>Supply Chain Services</h5></a>
       </div>
     </div>
-    {% include 'footer.html' %}
-  </body>
-</html>
+
+    <div class="row">
+      <div class="col-6" style="padding-bottom:50px">
+        <img src="/static/box_wrap.jpg" style="width:100%;border-radius:15px;height:500px">
+      </div>
+      <div class="col-6" style="padding-bottom:50px">
+        <img src="/static/sorting.jpg" style="width:100%;border-radius:15px;height:500px">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+
+        <div class="row">
+          <div class="col-6">
+            <b><h2>We Cover Pan India</h2></b>
+            <h1>158+</h1>
+            <h6>International Gateways</h6>
+          </div>
+          <div class="col-6">
+            <b><h2>We Handle</h2></b>
+            <h1>30k</h1>
+            <h6>Tons Per Month</h6>
+          </div>
+        </div>
+
+        <div class="text-center" style="padding:15px">
+        <a href="/contact" class="btn btn-primary" style="padding:15px"><b>Work With Us</b></a>
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <h3>EXPRESS PARCEL</h3>
+        <p>Our express parcel delivery network services over 18000 pin codes in India. It can handle consignments of up to 10 kilograms with same-day and next-day capabilities and 48-96 hour deliveries for long-distance orders. We also offer heavy goods service comprising the warehousing and delivery of heavy goods, such as large electrical goods, or white goods, furniture and sports equipment, supported by our extensive pan-India network and PTL services. Additionally, we extend our express parcel services for domestic shipping, through s2logistics. Direct to individual consumers from the comfort of their homes.</p>
+        <br>
+      </div>
+    </div>
+  </div>
+{% endblock %}

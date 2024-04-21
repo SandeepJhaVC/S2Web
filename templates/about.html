@@ -1,95 +1,91 @@
-<!DOCTYP html>
-<html>
-  <head>
-    <title>
-      S2 Logistics - About
-    </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body>
-  {%include 'header.html'%}
-    <h1 class="text-center">About</h1>
-    <div class="container">
-      <div class="row" style="padding-top:100px; padding-bottom:50px">
+{% extends 'home.html' %}
+
+{% block title %}
+S2 Logistics - About
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">About</h1>
+  <div class="container">
+    <div class="row" style="padding-top:100px; padding-bottom:50px">
+      
+      <div class="col-6">
+        <h4 style="padding-bottom:10px">Why choose us?</h4>
         
-        <div class="col-6">
-          <h4>Why choose us?</h4>
-          <b><h2>We Aim to Contribute Well</h2></b>
-          <h3>Fast Transportion Service</h3>
-          <h5>We believe in providing the best solutions to our customers for which our teams keep on working day-night to come up with various options which can benefit their interests.</h5>
-          <h3>Safety and Reliability</h3>
-          <h5>We believe in providing the reliable transportation service that guarantees safety.</h5>
-          <h3>Shipping in Domestic</h3>
-          <h5>We are one of the best domestic courier services in India, We offers all these facilities and more to ensure that customers benefit from their agile domestic services.</h5>
-          
-          <div class="row" style="padding-top:50px; padding-bottom:0px">
-              <div class="col-6">
-            <h4>Domestic Service</h4><br>
-            We always provide people a complete solution focused of any business.
-              </div>
-              <div class="col-6">
-                <h4>Local Service</h4><br>
-                Our rendered service is broadly acceptable by our clients for featuring different attributes like reliability, promptness and cost effectiveness.
-              </div>
-          </div>
-        </div>
+        <b><u><h2 style="padding-bottom:15px">We Aim to Contribute Well</h2></u></b>
         
-        <div class="col-6">
-          <img src="static/warehouse.jpg" style="width:100%;border-radius:15px;height:80%">
-        </div>
-      </div>
-
-      <div class="container" style="padding: 20px;margin:20px">
-          <div class="row" style="padding-left:30px">
-            <div class="col-3">
-            <b><h3>25K</h3>
-              Parcel Delivered</b>
+        <u><h3 style="padding:5px">Fast Transportion Service</h3></u>
+        <h5>We believe in providing the best solutions to our customers for which our teams keep on working day-night to come up with various options which can benefit their interests.</h5>
+        
+        <u><h3 style="padding:5px">Safety and Reliability</h3></u>
+        <h5>We believe in providing the reliable transportation service that guarantees safety.</h5>
+        <u><h3 style="padding:5px">Shipping in Domestic</h3></u>
+        <h5>We are one of the best domestic courier services in India, We offers all these facilities and more to ensure that customers benefit from their agile domestic services.</h5>
+        
+        <div class="row" style="padding-top:50px; padding-bottom:0px">
+            <div class="col-6">
+          <h4>Domestic Service</h4><br>
+          We always provide people a complete solution focused of any business.
             </div>
-            <div class="col-3">
-              <b><h3>15+</h3>
-                Total Branch</b>
+            <div class="col-6">
+              <h4>Local Service</h4><br>
+              Our rendered service is broadly acceptable by our clients for featuring different attributes like reliability, promptness and cost effectiveness.
             </div>
-            <div class="col-3">
-              <b><h3>5K</h3>
-                Satisfied Clients</b>
-            </div>
-            <div class="col-3">
-              <b><h3>100%</h3>
-                Delivered Packages</b>
-            </div>
-        </div>
-      </div>
-
-      <div class="row" style="padding: 30px;margin:30px">
-        <div class="col-3">
-        </div>
-        <div class="col-6" style="display: flex;align-items: center">
-          <b><h2>What Makes Us Special</h2></b>
-          <div style="padding:20px"></div>
-          <p> s2logistics is the fastest growing fully-integrated player in India . We aim to build the operating system for commerce, through a combination of world-class infrastructure, logistics operations of the highest quality and cutting-edge engineering and technology capabilities.</p>
-        </div>
-        <div class="col-3">
-        </div>
-      </div>
-
-      <div class="row" style="padding-top:50px; padding-bottom:50px">
-        <div class="col-4">
-          <h2>Trusted Franchise</h2>
-          s2logistics supply chain is now India’s most preferred courier service. The franchise program is very ...
-        </div>
-        <div class="col-4">
-        <h2>Customer Support</h2>
-          We believe in providing the best solutions to our customers for which our teams keep ...
-        </div>
-        <div class="col-4">
-        <h2>Reliability & Punctuality</h2>
-          We believe in providing a reliable transportation service that guarantees safety and punctuality.
         </div>
       </div>
       
+      <div class="col-6">
+        <img src="/static/award1.jpg" style="width:100%;border-radius:15px;height:100%">
+      </div>
     </div>
-  {%include 'footer.html'%}
-  </body>
-</html>
+
+    <div class="container" style="padding: 20px;margin:20px">
+        <div class="row" style="padding-left:30px">
+          <div class="col-3">
+          <b><h3>25K</h3>
+            Parcel Delivered</b>
+          </div>
+          <div class="col-3">
+            <b><h3>15+</h3>
+              Total Branch</b>
+          </div>
+          <div class="col-3">
+            <b><h3>5K</h3>
+              Satisfied Clients</b>
+          </div>
+          <div class="col-3">
+            <b><h3>100%</h3>
+              Delivered Packages</b>
+          </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding: 30px;margin:30px">
+      <div class="col-3">
+      </div>
+      <div class="col-6" style="display: flex;align-items: center">
+        <b><h2>What Makes Us Special</h2></b>
+        <div style="padding:20px"></div>
+        <p> s2logistics is the fastest growing fully-integrated player in India . We aim to build the operating system for commerce, through a combination of world-class infrastructure, logistics operations of the highest quality and cutting-edge engineering and technology capabilities.</p>
+      </div>
+      <div class="col-3">
+      </div>
+    </div>
+
+    <div class="row" style="padding-top:50px; padding-bottom:50px">
+      <div class="col-4">
+        <h2>Trusted Franchise</h2>
+        s2logistics supply chain is now India’s most preferred courier service. The franchise program is very ...
+      </div>
+      <div class="col-4">
+      <h2>Customer Support</h2>
+        We believe in providing the best solutions to our customers for which our teams keep ...
+      </div>
+      <div class="col-4">
+      <h2>Reliability & Punctuality</h2>
+        We believe in providing a reliable transportation service that guarantees safety and punctuality.
+      </div>
+    </div>
+    
+  </div>
+{% endblock %}
