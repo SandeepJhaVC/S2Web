@@ -1,5 +1,4 @@
 from flask import Flask, flash, render_template, request, redirect
-from firebase import firebase
 import firebase_admin
 from firebase_admin import credentials, db, auth
 
