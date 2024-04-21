@@ -5,13 +5,18 @@ Log-in S2 Logistics
 {% endblock %}
 
 {% block content %}
-  <h3 align="center">Sign In</h3><br>
-  <form class="text-center" method="POST" >
-    <div class="form-group container">
-    <input class="form-control" type="text" name="email" id="email" placeholder="email" style="padding:10px"><br>
-    <input class="form-control" type="password" name="password" id="password" placeholder="Type your Password" style="padding:10px">
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+<div class="container mt-5">
+    <h3 class="text-center">Sign In</h3>
+    <form class="mt-4" method="POST">
+        <div class="mb-3">
+            <input class="form-control" type="text" name="email" id="email" placeholder="Email" required>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

@@ -5,42 +5,41 @@ S2 Logistics - Services
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row" style="padding: 5px;padding-bottom:20px">
-      <div class="col-3">
-        <a href="/services/express_parcel" class="btn btn-outline-primary me-2">
-          <img src="/static/express-parcel.jpg" style="width:100%;border-radius:15px;height:250px">
-          <h2>EXPRESS PARCEL</h2>
-        </a>
-      </div>
-      <div class="col-1">
-      </div>
-      <div class="col-5">
-        <a href="/services/scs" class="btn btn-outline-primary me-2">
-          <img src="/static/scs.png" style="width:100%;border-radius:15px;height:250px">
-          <h2>SUPPLY CHAIN SERVICES</h2>
-        </a>
-      </div>
-      <div class="col-3">
-        <a href="/services/ead" class="btn btn-outline-primary me-2">
-          <img src="/static/ead.jpg" style="width:100%;border-radius:15px;height:250px">
-          <h2>ECOM APPOINTMENT DELIVERY</h2>
-        </a>
-      </div>
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <a href="/services/express_parcel" class="btn btn-outline-primary btn-block">
+                <img src="/static/express-parcel.jpg" class="img-fluid rounded mb-2" alt="Express Parcel">
+                <h2 class="text-center">EXPRESS PARCEL</h2>
+            </a>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <a href="/services/scs" class="btn btn-outline-primary btn-block">
+                <img src="/static/scs.png" class="img-fluid rounded mb-2" alt="Supply Chain Services">
+                <h2 class="text-center">SUPPLY CHAIN SERVICES</h2>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/services/ead" class="btn btn-outline-primary btn-block">
+                <img src="/static/ead.jpg" class="img-fluid rounded mb-2" alt="Ecom Appointment Delivery">
+                <h2 class="text-center">ECOM APPOINTMENT DELIVERY</h2>
+            </a>
+        </div>
     </div>
-    <div class="row text-center" style="padding: 5px;padding-top:20px">
-      <div class="col-6">
-        <a href="/services/truck_freight" class="btn btn-outline-primary me-2">
-          <img src="/static/tf.jpg" style="width:100%;border-radius:15px;height:500px">
-          <h2>TRUCKLOAD FREIGHT</h2>
-        </a>
-      </div>
-      <div class="col-6">
-        <a href="/services/ptf" class="btn btn-outline-primary me-2">
-          <img src="/static/half-filled.jpg" style="width:100%;border-radius:15px;height:500px">
-          <h2>PARTIAL-TRUCKLOAD FREIGHT</h2>
-        </a>
-      </div>
+    <div class="row text-center">
+        <div class="col-md-6">
+            <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
+                <img src="/static/tf.jpg" class="img-fluid rounded mb-2" alt="Truckload Freight">
+                <h2 class="text-center">TRUCKLOAD FREIGHT</h2>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="/services/ptf" class="btn btn-outline-primary btn-block">
+                <img src="/static/half-filled.jpg" class="img-fluid rounded mb-2" alt="Partial-Truckload Freight">
+                <h2 class="text-center">PARTIAL-TRUCKLOAD FREIGHT</h2>
+            </a>
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}

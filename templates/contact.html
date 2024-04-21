@@ -5,52 +5,56 @@ S2 Logistics - Contact
 {% endblock %}
 
 {% block content %}
-  <img src="static/contact.jpg" width="100%" height="40%">
-  <br><br>
-  <div class="container">
+<img src="static/contact.jpg" class="img-fluid" alt="Contact Image">
+<br><br>
+
+<div class="container">
     <div class="row">
-      <div class="col-1">
-      </div>
-      
-      <div class="col-5">
-      <h3>Get in Touch</h3><br>
-        <h5>Telephone:</h5>
-          18002120212<br>
-          011- 46082229<br><br>
-        <h5>Mail:</h5>
-          <a href="mailto:mail@s2logistics.co.in?subject=Requesting%20a%20quote">mail@s2logistics.co.in</a><br>
-          <a href="mailto:mail.s2logistics@gmail.com?subject=Requesting%20a%20quote">mail.s2logistics@gmail.com</a><br><br>
-        <h5>Address:</h5>
-          S-19, Ground Floor, Okhla Industrial Area, Phase 2 <br>
-          New Delhi, Delhi 110020, India
-      </div>
-      
-      <div class="col-5">
+        <div class="col-md-6">
+            <h3>Get in Touch</h3>
+            
+            <h5>Telephone:</h5>
+            <p>18002120212</p>
+            <p>011-46082229</p>
+            
+            <h5>Mail:</h5>
+            <p><a href="mailto:mail@s2logistics.co.in?subject=Requesting%20a%20quote">mail@s2logistics.co.in</a></p>
+            <p><a href="mailto:mail.s2logistics@gmail.com?subject=Requesting%20a%20quote">mail.s2logistics@gmail.com</a></p>
+            
+            <h5>Address:</h5>
+            <p>S-19, Ground Floor, Okhla Industrial Area, Phase 2</p>
+            <p>New Delhi, Delhi 110020, India</p>
+        </div>
         
-        <h2 class="text-center" style="padding-right:100px">Get a Quote</h2>
-        <br><br>
-        <div class="row">
-          <div class="col-6">
-            <input type="text" id="name" placeholder="Your Good Name">
-          </div>
-          <div class="col-6">
-            <input type="text" id="date" placeholder="Today's Date">
-          </div>
+        <div class="col-md-6">
+            <h2 class="text-center">Get a Quote</h2>
+            
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="name" placeholder="Your Good Name">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="date" placeholder="Today's Date">
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" id="email" placeholder="Email Id">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="tel" class="form-control" id="phone" placeholder="Phone No.">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-primary" value="Book an Appointment">
+                    </div>
+                </div>
+            </form>
         </div>
-        <br><br>
-        <div class="row">
-          <div class="col-6">
-            <input type="text" id="email" placeholder="Email Id">
-          </div>
-          <div class="col-6">
-            <input type="text" id="phone no" placeholder="Phone No.">
-          </div>
-          <br><br>
-          <input type="submit" value="Book an Appointment">
-        </div>
-        <div class="col-1">
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}
