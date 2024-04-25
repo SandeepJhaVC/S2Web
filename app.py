@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = 'asbeccdreeft'
 def hello_world():
   return render_template('home.html')
 
-@app.route("/sign_in", methods=['GET','POST'])
+@app.route("/admin/sign_in", methods=['GET','POST'])
 def login():
   if request.method == "POST":
     email = request.form.get('email')
@@ -34,7 +34,7 @@ def login():
 
   return render_template('sign_in.html')
 
-@app.route("/sign_up", methods=['GET','POST'])
+@app.route("/admin/sign_up", methods=['GET','POST'])
 def sign_up():
   if request.method == "POST":
 
