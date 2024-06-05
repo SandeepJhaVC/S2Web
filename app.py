@@ -1,18 +1,68 @@
-from flask import Flask, flash, render_template, request, redirect
+from flask import Flask, flash, render_template, request, redirect, url_for
 import firebase_admin
-from firebase_admin import credentials, db, auth
+from firebase_admin import credentials, db, auth, firestore
+
+from models import Shipment
 
 cred = credentials.Certificate('static/s2log-f75ab-firebase-adminsdk-i95uu-5954bc85a9.json')
 firebase_admin.initialize_app(cred)
 
-db=db.reference(url='https://s2log-f75ab-default-rtdb.asia-southeast1.firebasedatabase.app')
+rt=db.reference(url='https://s2log-f75ab-default-rtdb.asia-southeast1.firebasedatabase.app')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'asbeccdreeft'
 
+fs = firestore.client()
+shipments_ref = fs.collection('shipments')
+
+
 @app.route("/")
 def hello_world():
   return render_template('home.html')
+
+@app.route('/add_shipment', methods=['GET', 'POST'])
+def add_shipment():
+    if request.method == 'POST':
+        date_of_shipment = request.form.get('date_of_shipment')
+        date_of_delivery = request.form.get('date_of_delivery')
+        vehicle_type = request.form.get('vehicle_type')
+        vehicle_no = request.form.get('vehicle_no')
+        employee = request.form.get('employee')
+        client = request.form.get('client')
+
+        shipment = {
+            'date_of_shipment': date_of_shipment,
+            'date_of_delivery': date_of_delivery,
+            'vehicle_type': vehicle_type,
+            'vehicle_no': vehicle_no,
+            'employee': employee,
+            'client': client
+        }
+        shipments_ref.add(shipment)
+        return redirect('/view_shipments')
+
+    return render_template('add_shipment.html')
+
+@app.route('/view_shipments')
+def view_shipments():
+    shipments = []
+    for doc in shipments_ref.stream():
+        shipment = doc.to_dict()
+        if shipment is not None:
+            shipment['id'] = doc.id  # Add the document ID to the shipment dictionary
+            shipments.append(shipment)
+            print(shipment['id'])  # Print the ID to debug
+    return render_template('view_shipments.html', shipments=shipments)
+
+@app.route('/delete_shipment/<id>', methods=['GET', 'POST'])
+def delete_shipment(id):
+    try:
+        shipment = shipments_ref.document(id)
+        shipment.delete()
+        flash('Shipment deleted successfully', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'danger')
+    return redirect('/view_shipments')
 
 @app.route("/admin/sign_in", methods=['GET','POST'])
 def login():
@@ -22,12 +72,12 @@ def login():
 
     try:
       # Retrieve user data from Firebase Realtime Database
-      users = db.get()
+      users = rt.get()
       print(users)
       for user_id, user_data in users.items():
           if user_data['email'] == email and user_data['password'] == password:
               flash("Logged in successfully", category="success")
-              return redirect('/')
+              return redirect('/admin')
       flash("Invalid email or password", category="error")
     except Exception as e:
       flash(f"Error: {e}", category="error")
@@ -64,7 +114,7 @@ def sign_up():
         "name":name,
         "password":password
       }
-      db.push(user)
+      rt.push(user)
 
       flash("Account created", category="success")
       return redirect("/sign_in")

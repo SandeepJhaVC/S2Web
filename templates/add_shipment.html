@@ -1,0 +1,24 @@
+{% extends 'admin.html' %}
+{% block title %} Add Shipment {% endblock %}
+{% block content %}
+<form method="POST">
+  <label for="date_of_shipment">Date of Shipment:</label>
+  <input type="date" id="date_of_shipment" name="date_of_shipment" required><br>
+
+  <label for="date_of_delivery">Date of Delivery:</label>
+  <input type="date" id="date_of_delivery" name="date_of_delivery" required><br>
+
+  <label for="vehicle_type">Vehicle Type:</label>
+  <input type="text" id="vehicle_type" name="vehicle_type" required><br>
+
+  <label for="vehicle_no">Vehicle No:</label>
+  <input type="text" id="vehicle_no" name="vehicle_no" required><br>
+
+  <label for="employee">Employee:</label>
+  <input type="text" id="employee" name="employee" required><br>
+
+  <label for="client">Client:</label>
+  <input type="text" id="client" name="client" required><br>
+
+  <button type="submit">Add Shipment</button>
+{% endblock %}

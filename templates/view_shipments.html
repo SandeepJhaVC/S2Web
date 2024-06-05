@@ -1,0 +1,43 @@
+{% extends 'admin.html' %}
+{% block title %} Add Shipment {% endblock %}
+{% block content %}
+<h2>View Shipments</h2>
+{% if not shipments %}
+    <p>No shipments data found.</p>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date of Shipment</th>
+                <th>Date of Delivery</th>
+                <th>Vehicle Type</th>
+                <th>Vehicle No</th>
+                <th>Employee</th>
+                <th>Client</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shipment in shipments %}
+            {% if shipment is not none and 'id' in shipment %}
+            <tr>
+                <td>{{ shipment['date_of_shipment'] }}</td>
+                <td>{{ shipment['date_of_delivery'] }}</td>
+                <td>{{ shipment['vehicle_type'] }}</td>
+                <td>{{ shipment['vehicle_no'] }}</td>
+                <td>{{ shipment['employee'] }}</td>
+                <td>{{ shipment['client'] }}</td>
+                <td>
+                    <a href="{{ url_for('delete_shipment', id=shipment['id']) }}">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">Invalid shipment data: {{ shipment }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}
