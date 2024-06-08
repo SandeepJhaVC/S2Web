@@ -33,6 +33,17 @@
           <a href="/add_shipment" class="nav-link {% if request.path == '/add_shipment' %} active {% endif %}">
             Add Shipments
           </a>
+        </li>
+        <li>
+          <a href="/create_acc" class="nav-link {% if request.path == '/create_acc' %} active {% endif %}">
+            Create new account
+          </a>
+        </li>
+        <li>
+          <a href="/logout" class="nav-link {% if request.path == '/logout' %} active {% endif %}">
+            Logout
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -48,7 +59,7 @@
       </div>
     </nav> -->
 
-    <div style="padding: 50px; margin-left: 290px; padding-top:100px">
+    <div style="padding: 50px; margin-left: 290px;>
         {% block content %} {% endblock %}
     </div>
   </body>

@@ -1,8 +1,9 @@
-from flask import Flask, flash, render_template, request, redirect, url_for
+from flask import Flask, flash, render_template, request, redirect, url_for, session
 import firebase_admin
 from firebase_admin import credentials, db, auth, firestore
-
+import os
 from models import Shipment
+from functools import wraps
 
 cred = credentials.Certificate('static/s2log-f75ab-firebase-adminsdk-i95uu-5954bc85a9.json')
 firebase_admin.initialize_app(cred)
@@ -10,7 +11,7 @@ firebase_admin.initialize_app(cred)
 rt=db.reference(url='https://s2log-f75ab-default-rtdb.asia-southeast1.firebasedatabase.app')
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'asbeccdreeft'
+app.config['SECRET_KEY'] = os.urandom(24)
 
 fs = firestore.client()
 shipments_ref = fs.collection('shipments')
@@ -30,8 +31,17 @@ def delete_shipment(id):
         flash(f'An error occurred: {str(e)}', 'danger')
     return redirect('/view_shipments')
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            flash("Please log in to access this page", category="error")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/add_shipment', methods=['GET', 'POST'])
+@login_required
 def add_shipment():
   if request.method == 'POST':
     # Retrieve form data
@@ -120,9 +130,10 @@ def add_shipment():
     shipments_ref.add(shipment_data)
     return redirect('/view_shipments')
 
-  return render_template('add_shipment.html')
+  return render_template('new.html')
 
 @app.route('/view_shipments', methods=['GET', 'POST'])
+@login_required
 def view_shipments():
   status = request.args.get('status')
   shipper_name = request.args.get('shipper_name')
@@ -162,6 +173,7 @@ def view_shipments():
                          total_pages=total_pages)
 
 @app.route('/view_shipment/<id>')
+@login_required
 def view_shipment(id):
     shipment = shipments_ref.document(id).get()
     if shipment.exists:
@@ -170,6 +182,7 @@ def view_shipment(id):
         return 'Shipment not found', 404
 
 @app.route('/view_shipments/edit/<id>', methods=['GET', 'POST'])
+@login_required
 def edit_shipment(id):
   shipment_ref = shipments_ref.document(id)
   shipment = shipment_ref.get()
@@ -223,28 +236,30 @@ def edit_shipment(id):
 
   return render_template('edit_shipment.html', shipment=shipment.to_dict(), id=id)
 
-@app.route("/admin/sign_in", methods=['GET','POST'])
+@app.route("/sign_in", methods=['GET','POST'])
 def login():
-  if request.method == "POST":
-    email = request.form.get('email')
-    password = request.form.get('password')
+    if request.method == "POST":
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-    try:
-      # Retrieve user data from Firebase Realtime Database
-      users = rt.get()
-      print(users)
-      for user_id, user_data in users.items():
-          if user_data['email'] == email and user_data['password'] == password:
-              flash("Logged in successfully", category="success")
-              return redirect('/view_shipments')
-      flash("Invalid email or password", category="error")
-    except Exception as e:
-      flash(f"Error: {e}", category="error")
+        try:
+            # Retrieve user data from Firebase Realtime Database
+            users = rt.get()
+            for user_id, user_data in users.items():
+                if user_data['email'] == email and user_data['password'] == password:
+                    session['logged_in'] = True
+                    session['user_id'] = user_id
+                    flash("Logged in successfully", category="success")
+                    return redirect(url_for('view_shipments'))
+            flash("Invalid email or password", category="error")
+        except Exception as e:
+            flash(f"Error: {e}", category="error")
 
-  return render_template('sign_in.html')
+    return render_template('sign_in.html')
 
-@app.route("/admin/sign_up", methods=['GET','POST'])
-def sign_up():
+@app.route("/create_acc", methods=['GET','POST'])
+@login_required
+def create_acc():
   if request.method == "POST":
 
     email = request.form.get('email')
@@ -265,7 +280,7 @@ def sign_up():
           print(f"Successfully created user: {user.uid}")
       except Exception as e:
           flash(f"Error creating user: {e}", category="error")
-          return render_template('sign_up.html')
+          return render_template('create_acc.html')
 
       # Save user data to Firebase Realtime Database
       user = {
@@ -276,9 +291,16 @@ def sign_up():
       rt.push(user)
 
       flash("Account created", category="success")
-      return redirect("/sign_in")
+      return redirect("/view_shipments")
 
-  return render_template('sign_up.html')
+  return render_template('create_acc.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    session.pop('user_id', None)
+    flash("Logged out successfully", category="success")
+    return redirect(url_for('login'))
 
 @app.route("/about")
 def about():
