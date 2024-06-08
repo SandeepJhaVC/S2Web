@@ -25,19 +25,18 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href="/view_shipments" class="nav-link active" aria-current="page">
-            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+          <a href="/view_shipments" class="nav-link {% if request.path == '/view_shipments' %} active {% endif %}" aria-current="page">
             View Shipments
           </a>
         </li>
         <li>
-          <a href="/add_shipment" class="nav-link link-body-emphasis">
+          <a href="/add_shipment" class="nav-link {% if request.path == '/add_shipment' %} active {% endif %}">
             Add Shipments
           </a>
       </ul>
     </div>
 
-    <nav class="navbar navbar-expand-md fixed-top" style="margin-left:280px;">
+    <!-- <nav class="navbar navbar-expand-md fixed-top" style="margin-left:280px;">
       <div class="container-fluid ms-3">
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -46,8 +45,8 @@
       <!-- </div>
       <div class="me-3">
         Admin
-      </div> -->
-    </nav>
+      </div>
+    </nav> -->
 
     <div style="padding: 50px; margin-left: 290px; padding-top:100px">
         {% block content %} {% endblock %}

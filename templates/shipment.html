@@ -1,0 +1,80 @@
+{% extends 'admin.html' %}
+{% block title %} Shipment Details {% endblock %}
+{% block content %}
+<div style="text-align:center;">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" style="max-height: 150px;">
+    <br>
+    <img src="{{ url_for('static', filename='barcode.png') }}" alt="Barcode" style="max-height: 50px;">
+    <p>{{ shipment.shipment_number }}</p>
+</div>
+
+<div style="display: flex; justify-content: space-between;">
+    <div style="flex: 1; padding: 10px;">
+        <h3>SHIPPER ADDRESS</h3>
+        <p>Shipper Name: {{ shipment.shipper_name }}</p>
+    </div>
+    <div style="flex: 1; padding: 10px;">
+        <h3>CONSIGNEE ADDRESS</h3>
+        <p>Receiver Name: {{ shipment.receiver_name }}</p>
+    </div>
+</div>
+
+<h3 style="text-align: center; background-color: red; color: white;">SHIPMENT STATUS: {{ shipment.status }}</h3>
+
+<h4>ADDITIONAL SHIPMENT DETAILS</h4>
+<p>POD as PDF: <a href="{{ shipment.pod_url }}" target="_blank"><img src="{{ shipment.pod_url }}" alt="POD" style="max-height: 100px;"></a></p>
+
+<h4>PACKAGES</h4>
+<table style="width: 100%; border-collapse: collapse;">
+    <thead style="background-color: red; color: white;">
+        <tr>
+            <th>Qty</th>
+            <th>Piece Type</th>
+            <th>Description</th>
+            <th>Length (cm)</th>
+            <th>Width (cm)</th>
+            <th>Height (cm)</th>
+            <th>Weight (kg)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for package in shipment.packages %}
+        <tr>
+            <td>{{ package.qty }}</td>
+            <td>{{ package.piece_type }}</td>
+            <td>{{ package.description }}</td>
+            <td>{{ package.length }}</td>
+            <td>{{ package.width }}</td>
+            <td>{{ package.height }}</td>
+            <td>{{ package.weight }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4>SHIPMENT HISTORY</h4>
+<table style="width: 100%; border-collapse: collapse;">
+    <thead style="background-color: red; color: white;">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Updated By</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for history in shipment.history %}
+        <tr>
+            <td>{{ history.date }}</td>
+            <td>{{ history.time }}</td>
+            <td>{{ history.location }}</td>
+            <td>{{ history.status }}</td>
+            <td>{{ history.updated_by }}</td>
+            <td>{{ history.remarks }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

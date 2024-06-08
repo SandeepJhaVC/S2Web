@@ -2,42 +2,51 @@
 {% block title %} Add Shipment {% endblock %}
 {% block content %}
 <h2>View Shipments</h2>
-{% if not shipments %}
-    <p>No shipments data found.</p>
-{% else %}
-    <table>
-        <thead>
-            <tr>
-                <th>Date of Shipment</th>
-                <th>Date of Delivery</th>
-                <th>Vehicle Type</th>
-                <th>Vehicle No</th>
-                <th>Employee</th>
-                <th>Client</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for shipment in shipments %}
-            {% if shipment is not none and 'id' in shipment %}
-            <tr>
-                <td>{{ shipment['date_of_shipment'] }}</td>
-                <td>{{ shipment['date_of_delivery'] }}</td>
-                <td>{{ shipment['vehicle_type'] }}</td>
-                <td>{{ shipment['vehicle_no'] }}</td>
-                <td>{{ shipment['employee'] }}</td>
-                <td>{{ shipment['client'] }}</td>
-                <td>
-                    <a href="{{ url_for('delete_shipment', id=shipment['id']) }}">Delete</a>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="7">Invalid shipment data: {{ shipment }}</td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+<!-- Filter and Search Form -->
+<form method="GET" action="{{ url_for('view_shipments') }}">
+    <!-- Filter form fields -->
+</form>
+
+<!-- Shipments Table -->
+<table>
+    <thead>
+        <tr>
+            <th>Shipment Number</th>
+            <th>Tracking Number</th>
+            <th>Shipper Name</th>
+            <th>Receiver Name</th>
+            <th>Container</th>
+            <th>Shipment Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for shipment in shipments %}
+        <tr>
+            <td>{{ shipment.shipment_number }}</td>
+            <td>{{ shipment.tracking_number }}</td>
+            <td>{{ shipment.shipper_name }}</td>
+            <td>{{ shipment.receiver_name }}</td>
+            <td>{{ shipment.container }}</td>
+            <td>{{ shipment.shipment_type }}</td>
+            <td>{{ shipment.status }}</td>
+            <td>
+                <a href="{{ url_for('view_shipment', id=shipment['id']) }}">View</a> |
+                <a href="{{ url_for('edit_shipment', id=shipment['id']) }}">Edit</a> |
+                <a href="{{ url_for('delete_shipment', id=shipment['id']) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination (simplified example) -->
+<div>
+    <a href="{{ url_for('view_shipments', page=1) }}">First</a>
+    <a href="{{ url_for('view_shipments', page=page-1 if page > 1 else 1) }}">Previous</a>
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    <a href="{{ url_for('view_shipments', page=page+1 if page < total_pages else total_pages) }}">Next</a>
+    <a href="{{ url_for('view_shipments', page=total_pages) }}">Last</a>
+</div>
 {% endblock %}

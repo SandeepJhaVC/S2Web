@@ -20,40 +20,6 @@ shipments_ref = fs.collection('shipments')
 def hello_world():
   return render_template('home.html')
 
-@app.route('/add_shipment', methods=['GET', 'POST'])
-def add_shipment():
-    if request.method == 'POST':
-        date_of_shipment = request.form.get('date_of_shipment')
-        date_of_delivery = request.form.get('date_of_delivery')
-        vehicle_type = request.form.get('vehicle_type')
-        vehicle_no = request.form.get('vehicle_no')
-        employee = request.form.get('employee')
-        client = request.form.get('client')
-
-        shipment = {
-            'date_of_shipment': date_of_shipment,
-            'date_of_delivery': date_of_delivery,
-            'vehicle_type': vehicle_type,
-            'vehicle_no': vehicle_no,
-            'employee': employee,
-            'client': client
-        }
-        shipments_ref.add(shipment)
-        return redirect('/view_shipments')
-
-    return render_template('add_shipment.html')
-
-@app.route('/view_shipments')
-def view_shipments():
-    shipments = []
-    for doc in shipments_ref.stream():
-        shipment = doc.to_dict()
-        if shipment is not None:
-            shipment['id'] = doc.id  # Add the document ID to the shipment dictionary
-            shipments.append(shipment)
-            print(shipment['id'])  # Print the ID to debug
-    return render_template('view_shipments.html', shipments=shipments)
-
 @app.route('/delete_shipment/<id>', methods=['GET', 'POST'])
 def delete_shipment(id):
     try:
@@ -63,6 +29,199 @@ def delete_shipment(id):
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'danger')
     return redirect('/view_shipments')
+
+
+@app.route('/add_shipment', methods=['GET', 'POST'])
+def add_shipment():
+  if request.method == 'POST':
+    # Retrieve form data
+    ship_name = request.form.get('shipName')
+    ship_phone = request.form.get('shipPhone')
+    ship_address = request.form.get('shipAddress')
+    ship_email = request.form.get('shipEmail')
+    ship_gst = request.form.get('shipGST')
+
+    rec_name = request.form.get('recName')
+    rec_phone = request.form.get('recPhone')
+    rec_address = request.form.get('recAddress')
+    rec_email = request.form.get('recEmail')
+    rec_pin = request.form.get('recPin')
+
+    ship_type = request.form.get('shipType')
+    unit_count = request.form.get('unitCount')
+    box_count = request.form.get('boxCount')
+    po_number = request.form.get('poNumber')
+    po_expiry = request.form.get('poExpiry')
+    invoice_number = request.form.get('invoiceNumber')
+    invoice_value = request.form.get('invoiceValue')
+    amount_collected = request.form.get('amountCollected')
+    cn_number = request.form.get('cnNumber')
+    apt_number = request.form.get('aptNumber')
+    apt_date = request.form.get('aptDate')
+
+    ass_branch = request.form.get('ass_branch')
+
+    client = request.form.get('client')
+    agent = request.form.get('agent')
+    branch_man = request.form.get('branchMan')
+    driver = request.form.get('driver')
+    
+    container = request.form.get('container')
+    
+    date = request.form.get('date')
+    time = request.form.get('time')
+    location = request.form.get('location')
+    status = request.form.get('status')
+    
+    packages = []
+    for qty, piece_type, description, length, width, height, weight in zip(
+        request.form.getlist('qty[]'), 
+        request.form.getlist('pieceType[]'), 
+        request.form.getlist('description[]'), 
+        request.form.getlist('length[]'), 
+        request.form.getlist('width[]'), 
+        request.form.getlist('height[]'), 
+        request.form.getlist('weight[]')
+    ):
+      packages.append({
+          'qty': qty,
+          'piece_type': piece_type,
+          'description': description,
+          'length': length,
+          'width': width,
+          'height': height,
+          'weight': weight
+      })
+    shipment_data = {
+      'shipper_name': ship_name,
+      'shipper_phone': ship_phone,
+      'shipper_address': ship_address,
+      'shipper_email': ship_email,
+      'shipper_gst': ship_gst,
+      'receiver_name': rec_name,
+      'receiver_phone': rec_phone,
+      'receiver_address': rec_address,
+      'receiver_email': rec_email,
+      'shipment_type': ship_type,
+      'unit_count': unit_count,
+      'box_count': box_count,
+      'po_number': po_number,
+      'po_expiry': po_expiry,
+      'invoice_number': invoice_number,
+      'invoice_value': invoice_value,
+      'amount_collected': amount_collected,
+      'cn_number': cn_number,
+      'appointment_number': apt_number,
+      'container': container,
+      'packages': packages
+    }
+
+    # Assuming you have a Firestore collection called 'shipments'
+    shipments_ref.add(shipment_data)
+    return redirect('/view_shipments')
+
+  return render_template('add_shipment.html')
+
+@app.route('/view_shipments', methods=['GET', 'POST'])
+def view_shipments():
+  status = request.args.get('status')
+  shipper_name = request.args.get('shipper_name')
+  receiver_name = request.args.get('receiver_name')
+  date_start = request.args.get('date_start')
+  date_end = request.args.get('date_end')
+  page = int(request.args.get('page', 1))
+  per_page = 10
+
+  query = shipments_ref
+
+  if status:
+      query = query.where('status', '==', status)
+  if shipper_name:
+      query = query.where('shipper_name', '==', shipper_name)
+  if receiver_name:
+      query = query.where('receiver_name', '==', receiver_name)
+  if date_start:
+      query = query.where('date_created', '>=', date_start)
+  if date_end:
+      query = query.where('date_created', '<=', date_end)
+
+  # Fetch documents and include the document ID in the data
+  shipments = []
+  for doc in query.stream():
+      shipment = doc.to_dict()
+      shipment['id'] = doc.id
+      shipments.append(shipment)
+
+  total_shipments = len(shipments)
+  total_pages = (total_shipments + per_page - 1) // per_page
+  shipments = shipments[(page-1)*per_page:page*per_page]
+
+  return render_template('view_shipments.html', 
+                         shipments=shipments, 
+                         page=page, 
+                         total_pages=total_pages)
+
+@app.route('/view_shipment/<id>')
+def view_shipment(id):
+    shipment = shipments_ref.document(id).get()
+    if shipment.exists:
+        return render_template('shipment.html', shipment=shipment.to_dict())
+    else:
+        return 'Shipment not found', 404
+
+@app.route('/view_shipments/edit/<id>', methods=['GET', 'POST'])
+def edit_shipment(id):
+  shipment_ref = shipments_ref.document(id)
+  shipment = shipment_ref.get()
+  if not shipment.exists:
+      return 'Shipment not found', 404
+
+  if request.method == 'POST':
+      updated_data = {
+          'shipper_name': request.form.get('shipperName'),
+          'shipper_phone': request.form.get('shipperPhone'),
+          'shipper_address': request.form.get('shipperAddress'),
+          'shipper_email': request.form.get('shipperEmail'),
+          'shipper_gst': request.form.get('shipperGST'),
+          'receiver_name': request.form.get('receiverName'),
+          'receiver_phone': request.form.get('receiverPhone'),
+          'receiver_address': request.form.get('receiverAddress'),
+          'receiver_email': request.form.get('receiverEmail'),
+          'shipment_type': request.form.get('shipmentType'),
+          'unit_count': request.form.get('unitCount'),
+          'box_count': request.form.get('boxCount'),
+          'po_number': request.form.get('poNumber'),
+          'po_expiry': request.form.get('poExpiry'),
+          'invoice_number': request.form.get('invoiceNumber'),
+          'invoice_value': request.form.get('invoiceValue'),
+          'amount_collected': request.form.get('amountCollected'),
+          'cn_number': request.form.get('cnNumber'),
+          'appointment_number': request.form.get('appointmentNumber'),
+          'container': request.form.get('container'),
+          'packages': []
+      }
+      for qty, piece_type, description, length, width, height, weight in zip(
+          request.form.getlist('qty[]'), 
+          request.form.getlist('pieceType[]'), 
+          request.form.getlist('description[]'), 
+          request.form.getlist('length[]'), 
+          request.form.getlist('width[]'), 
+          request.form.getlist('height[]'), 
+          request.form.getlist('weight[]')
+      ):
+          updated_data['packages'].append({
+              'qty': qty,
+              'piece_type': piece_type,
+              'description': description,
+              'length': length,
+              'width': width,
+              'height': height,
+              'weight': weight
+          })
+      shipment_ref.update(updated_data)
+      return redirect(url_for('view_shipments'))
+
+  return render_template('edit_shipment.html', shipment=shipment.to_dict(), id=id)
 
 @app.route("/admin/sign_in", methods=['GET','POST'])
 def login():
@@ -77,7 +236,7 @@ def login():
       for user_id, user_data in users.items():
           if user_data['email'] == email and user_data['password'] == password:
               flash("Logged in successfully", category="success")
-              return redirect('/admin')
+              return redirect('/view_shipments')
       flash("Invalid email or password", category="error")
     except Exception as e:
       flash(f"Error: {e}", category="error")

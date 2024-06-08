@@ -1,0 +1,106 @@
+{% extends 'admin.html' %}
+{% block title %} Edit Shipment {% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Edit Shipment</h2>
+    <form method="POST" action="{{ url_for('edit_shipment', id=id) }}">
+        <h5>Shipper Information</h5>
+        <div class="form-group">
+            <label for="shipperName">Shipper Name</label>
+            <input type="text" class="form-control" name="shipperName" id="shipperName" value="{{ shipment.shipper_name }}">
+        </div>
+        <!-- other shipper fields -->
+
+        <h5>Receiver Information</h5>
+        <div class="form-group">
+            <label for="receiverName">Receiver Name</label>
+            <input type="text" class="form-control" name="receiverName" id="receiverName" value="{{ shipment.receiver_name }}">
+        </div>
+        <!-- other receiver fields -->
+
+        <h5>Additional Shipment Details</h5>
+        <!-- additional shipment details fields -->
+
+        <h5>Packages</h5>
+        <div id="package-container">
+            {% for package in shipment.packages %}
+            <div class="form-row package-item mb-2">
+                <div class="col">
+                    <label>Qty</label>
+                    <input type="text" class="form-control" name="qty[]" value="{{ package.qty }}">
+                </div>
+                <div class="col">
+                    <label>Piece Type</label>
+                    <input type="text" class="form-control" name="pieceType[]" value="{{ package.piece_type }}">
+                </div>
+                <div class="col">
+                    <label>Description</label>
+                    <input type="text" class="form-control" name="description[]" value="{{ package.description }}">
+                </div>
+                <div class="col">
+                    <label>Length(cm)</label>
+                    <input type="text" class="form-control" name="length[]" value="{{ package.length }}">
+                </div>
+                <div class="col">
+                    <label>Width(cm)</label>
+                    <input type="text" class="form-control" name="width[]" value="{{ package.width }}">
+                </div>
+                <div class="col">
+                    <label>Height(cm)</label>
+                    <input type="text" class="form-control" name="height[]" value="{{ package.height }}">
+                </div>
+                <div class="col">
+                    <label>Weight(kg)</label>
+                    <input type="text" class="form-control" name="weight[]" value="{{ package.weight }}">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="button" class="btn btn-secondary mb-3" onclick="addPackage()">Add Package</button>
+
+        <h5>Shipment History</h5>
+        <!-- shipment history fields -->
+
+        <button type="submit" class="btn btn-primary">Update Shipment</button>
+    </form>
+</div>
+
+<script>
+function addPackage() {
+    const container = document.getElementById('package-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'form-row package-item mb-2';
+    newItem.innerHTML = `
+        <div class="col">
+            <label>Qty</label>
+            <input type="text" class="form-control" name="qty[]" value="">
+        </div>
+        <div class="col">
+            <label>Piece Type</label>
+            <input type="text" class="form-control" name="pieceType[]" value="">
+        </div>
+        <div class="col">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description[]" value="">
+        </div>
+        <div class="col">
+            <label>Length(cm)</label>
+            <input type="text" class="form-control" name="length[]" value="">
+        </div>
+        <div class="col">
+            <label>Width(cm)</label>
+            <input type="text" class="form-control" name="width[]" value="">
+        </div>
+        <div class="col">
+            <label>Height(cm)</label>
+            <input type="text" class="form-control" name="height[]" value="">
+        </div>
+        <div class="col">
+            <label>Weight(kg)</label>
+            <input type="text" class="form-control" name="weight[]" value="">
+        </div>
+    `;
+    container.appendChild(newItem);
+}
+</script>
+{% endblock %}

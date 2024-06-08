@@ -1,24 +1,182 @@
 {% extends 'admin.html' %}
 {% block title %} Add Shipment {% endblock %}
 {% block content %}
-<form method="POST">
-  <label for="date_of_shipment">Date of Shipment:</label>
-  <input type="date" id="date_of_shipment" name="date_of_shipment" required><br>
+<form method="POST" action="{{ url_for('add_shipment') }}">
+  <!-- Shipper Information -->
+  <h3>Shipper Information</h3>
+  <div class="form-group">
+      <label for="shipName">Shipper Name</label>
+      <input type="text" class="form-control" id="shipName" name="shipName" required>
+  </div>
+  <div class="form-group">
+      <label for="shipPhone">Phone Number</label>
+      <input type="text" class="form-control" id="shipPhone" name="shipPhone" required>
+  </div>
+  <div class="form-group">
+      <label for="shipAddress">Address</label>
+      <input type="text" class="form-control" id="shipAddress" name="shipAddress" required>
+  </div>
+  <div class="form-group">
+      <label for="shipEmail">Email</label>
+      <input type="email" class="form-control" id="shipEmail" name="shipEmail">
+  </div>
+  <div class="form-group">
+      <label for="shipGST">GST NO</label>
+      <input type="text" class="form-control" id="shipGST" name="shipGST">
+  </div>
 
-  <label for="date_of_delivery">Date of Delivery:</label>
-  <input type="date" id="date_of_delivery" name="date_of_delivery" required><br>
+  <!-- Receiver Information -->
+  <h3>Receiver Information</h3>
+  <div class="form-group">
+      <label for="recName">Receiver Name</label>
+      <input type="text" class="form-control" id="recName" name="recName" required>
+  </div>
+  <div class="form-group">
+      <label for="recPhone">Phone Number</label>
+      <input type="text" class="form-control" id="recPhone" name="recPhone" required>
+  </div>
+  <div class="form-group">
+      <label for="recAddress">Address</label>
+      <input type="text" class="form-control" id="recAddress" name="recAddress" required>
+  </div>
+  <div class="form-group">
+      <label for="recEmail">Email</label>
+      <input type="email" class="form-control" id="recEmail" name="recEmail">
+  </div>
 
-  <label for="vehicle_type">Vehicle Type:</label>
-  <input type="text" id="vehicle_type" name="vehicle_type" required><br>
+  <!-- Additional Shipment Details -->
+  <h3>Additional Shipment Details</h3>
+  <div class="form-group">
+      <label for="shipmentType">Type of Shipment</label>
+      <select class="form-control" id="shipmentType" name="shipmentType" required>
+          <option>-- Select One --</option>
+          <!-- Add shipment type options here -->
+      </select>
+  </div>
+  <div class="form-group">
+      <label for="unitCount">Unit Count</label>
+      <input type="number" class="form-control" id="unitCount" name="unitCount">
+  </div>
+  <div class="form-group">
+      <label for="boxCount">Box Count</label>
+      <input type="number" class="form-control" id="boxCount" name="boxCount">
+  </div>
+  <div class="form-group">
+      <label for="poNumber">PO Number</label>
+      <input type="text" class="form-control" id="poNumber" name="poNumber">
+  </div>
+  <div class="form-group">
+      <label for="poExpiry">PO Expiry</label>
+      <input type="date" class="form-control" id="poExpiry" name="poExpiry">
+  </div>
+  <div class="form-group">
+      <label for="invoiceNumber">Invoice Number</label>
+      <input type="text" class="form-control" id="invoiceNumber" name="invoiceNumber">
+  </div>
+  <div class="form-group">
+      <label for="invoiceValue">Invoice Value</label>
+      <input type="number" class="form-control" id="invoiceValue" name="invoiceValue">
+  </div>
+  <div class="form-group">
+      <label for="amountCollected">Amount Collected</label>
+      <input type="number" class="form-control" id="amountCollected" name="amountCollected">
+  </div>
+  <div class="form-group">
+      <label for="cnNumber">CN Number</label>
+      <input type="text" class="form-control" id="cnNumber" name="cnNumber">
+  </div>
+  <div class="form-group">
+      <label for="aptNumber">Appointment Number</label>
+      <input type="text" class="form-control" id="aptNumber" name="aptNumber">
+  </div>
 
-  <label for="vehicle_no">Vehicle No:</label>
-  <input type="text" id="vehicle_no" name="vehicle_no" required><br>
+  <!-- Container Details -->
+  <h3>Container Details</h3>
+  <div class="form-group">
+      <label for="container">Shipment Container</label>
+      <select class="form-control" id="container" name="container">
+          <option>-- Select Container --</option>
+          <!-- Add container options here -->
+      </select>
+  </div>
 
-  <label for="employee">Employee:</label>
-  <input type="text" id="employee" name="employee" required><br>
+  <!-- Packages -->
+  <h3>Packages</h3>
+  <div id="packages">
+      <div class="form-row">
+          <div class="form-group col-md-2">
+              <label for="qty">Qty</label>
+              <input type="number" class="form-control" id="qty" name="qty[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="pieceType">Piece Type</label>
+              <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" name="description[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="length">Length (cm)</label>
+              <input type="number" class="form-control" id="length" name="length[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="width">Width (cm)</label>
+              <input type="number" class="form-control" id="width" name="width[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="height">Height (cm)</label>
+              <input type="number" class="form-control" id="height" name="height[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="weight">Weight (kg)</label>
+              <input type="number" class="form-control" id="weight" name="weight[]">
+          </div>
+      </div>
+  </div>
+  <button type="button" onclick="addPackage()">Add Package</button>
 
-  <label for="client">Client:</label>
-  <input type="text" id="client" name="client" required><br>
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary">Add Shipment</button>
+</form>
 
-  <button type="submit">Add Shipment</button>
+<script>
+function addPackage() {
+  var packageDiv = document.getElementById('packages');
+  var newPackage = document.createElement('div');
+  newPackage.className = 'form-row';
+  newPackage.innerHTML = `
+      <div class="form-group col-md-2">
+          <label for="qty">Qty</label>
+          <input type="number" class="form-control" id="qty" name="qty[]">
+      </div>
+      <div class="form-group col-md-2">
+          <label for="pieceType">Piece Type</label>
+          <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+      </div>
+      <div class="form-group col-md-2">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" id="description" name="description[]">
+      </div>
+      <div class="form-group col-md-2">
+          <label for="length">Length (cm)</label>
+          <input type="number" class="form-control" id="length" name="length[]">
+      </div>
+      <div class="form-group col-md-2">
+          <label for="width">Width (cm)</label>
+          <input type="number" class="form-control" id="width" name="width[]">
+      </div>
+      <div class="form-group col-md-2">
+          <label for="height">Height (cm)</label>
+          <input type="number" class="form-control" id="height" name="height[]">
+      </div>
+      <div class="form-group col-md-2">
+          <label for="weight">Weight (kg)</label>
+          <input type="number" class="form-control" id="weight" name="weight[]">
+      </div>
+  `;
+  packageDiv.appendChild(newPackage);
+}
+</script>
+
 {% endblock %}
