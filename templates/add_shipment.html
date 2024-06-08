@@ -141,6 +141,7 @@
                       <label for="weight">Weight (kg)</label>
                       <input type="number" class="form-control" id="weight" name="weight[]">
                   </div>
+                  
               </div>
               <button type="button" class="m-3" onclick="addPackage()">Add Package</button>
           </div>
@@ -171,70 +172,51 @@
 </div>
 
 <script>
-    function deletePackage(button) {
-      // Get the parent row of the delete button
-      var packageRow = button.parentElement.parentElement;
-      // Remove the parent row
-      packageRow.remove();
-    }
-    
-    function addPackage() {
-        var packageDiv = document.getElementById('packages');
-        var newPackageRow = document.createElement('div');
-        newPackageRow.className = 'row mb-3'; // Add 'row' class to create a new row
+  function deletePackage(button) {
+    // Get the parent row of the delete button
+    var packageRow = button.parentElement.parentElement;
+    // Remove the parent row
+    packageRow.remove();
+  }
+  function addPackage() {
+      var packageDiv = document.getElementById('packages');
+      var newPackage = document.createElement('div');
+      newPackage.className = 'row';
 
-        // Create package input elements
-        var qtyInput = createInput('Qty', 'number', 'qty[]');
-        var pieceTypeInput = createInput('Piece Type', 'text', 'pieceType[]');
-        var descriptionInput = createInput('Description', 'text', 'description[]');
-        var lengthInput = createInput('Length (cm)', 'number', 'length[]');
-        var widthInput = createInput('Width (cm)', 'number', 'width[]');
-        var heightInput = createInput('Height (cm)', 'number', 'height[]');
-        var weightInput = createInput('Weight (kg)', 'number', 'weight[]');
-
-        // Create delete button
-        var deleteButton = document.createElement('button');
-        deleteButton.type = 'button';
-        deleteButton.className = 'btn btn-danger mt-auto';
-        deleteButton.textContent = 'Delete';
-        deleteButton.onclick = function() { deletePackage(this); };
-
-        // Append inputs and delete button to the row
-        newPackageRow.appendChild(qtyInput);
-        newPackageRow.appendChild(pieceTypeInput);
-        newPackageRow.appendChild(descriptionInput);
-        newPackageRow.appendChild(lengthInput);
-        newPackageRow.appendChild(widthInput);
-        newPackageRow.appendChild(heightInput);
-        newPackageRow.appendChild(weightInput);
-        newPackageRow.appendChild(deleteButton);
-
-        // Append the new row to the packages container
-        packageDiv.appendChild(newPackageRow);
-    }
-
-    function createInput(labelText, inputType, inputName) {
-        var inputGroup = document.createElement('div');
-        inputGroup.className = 'form-group col-md-2';
-
-        var label = document.createElement('label');
-        label.setAttribute('for', inputName);
-        label.textContent = labelText;
-
-        var input = document.createElement('input');
-        input.type = inputType;
-        input.className = 'form-control';
-        input.id = inputName;
-        input.name = inputName;
-
-        inputGroup.appendChild(label);
-        inputGroup.appendChild(input);
-
-        return inputGroup;
-    }
-
-    
-
-
+      newPackage.innerHTML = `
+          <div class="form-group col-md-2">
+              <label for="qty">Qty</label>
+              <input type="number" class="form-control" id="qty" name="qty[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="pieceType">Piece Type</label>
+              <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" name="description[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="length">Length (cm)</label>
+              <input type="number" class="form-control" id="length" name="length[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="width">Width (cm)</label>
+              <input type="number" class="form-control" id="width" name="width[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="height">Height (cm)</label>
+              <input type="number" class="form-control" id="height" name="height[]">
+          </div>
+          <div class="form-group col-md-2">
+              <label for="weight">Weight (kg)</label>
+              <input type="number" class="form-control" id="weight" name="weight[]">
+          </div>
+          <div class="form-group col-md-2 align-self-end">
+              <button type="button" class="btn btn-danger mt-auto" onclick="deletePackage(this)">Delete</button>
+          </div>
+      `;
+      packageDiv.appendChild(newPackage);
+  }
 </script>
 {% endblock %}

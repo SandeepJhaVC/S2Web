@@ -8,24 +8,22 @@
 </form>
 
 <!-- Shipments Table -->
-<table>
+<table class="table table-success table-striped table-bordered">
     <thead>
         <tr>
-            <th>Shipment Number</th>
-            <th>Tracking Number</th>
-            <th>Shipper Name</th>
-            <th>Receiver Name</th>
-            <th>Container</th>
-            <th>Shipment Type</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th class="col">Shipment ID</th>
+            <th class="col">Shipper Name</th>
+            <th class="col">Receiver Name</th>
+            <th class="col">Container</th>
+            <th class="col">Shipment Type</th>
+            <th class="col">Status</th>
+            <th class="col">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for shipment in shipments %}
         <tr>
-            <td>{{ shipment.shipment_number }}</td>
-            <td>{{ shipment.tracking_number }}</td>
+            <td>{{ shipment.shipment_id }}</td>
             <td>{{ shipment.shipper_name }}</td>
             <td>{{ shipment.receiver_name }}</td>
             <td>{{ shipment.container }}</td>

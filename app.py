@@ -4,6 +4,8 @@ from firebase_admin import credentials, db, auth, firestore
 import os
 from models import Shipment
 from functools import wraps
+import random
+import string
 
 cred = credentials.Certificate('static/s2log-f75ab-firebase-adminsdk-i95uu-5954bc85a9.json')
 firebase_admin.initialize_app(cred)
@@ -16,6 +18,22 @@ app.config['SECRET_KEY'] = os.urandom(24)
 fs = firestore.client()
 shipments_ref = fs.collection('shipments')
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            flash("Please log in to access this page", category="error")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+def generate_unique_shipment_id():
+    while True:
+        id = string.ascii_letters + string.digits
+        id6 = ''.join(random.choices(id, k=6))
+        existing_shipment = shipments_ref.where('shipment_id', '==', id6).get()
+        if not existing_shipment:
+            return id6
 
 @app.route("/")
 def hello_world():
@@ -30,15 +48,6 @@ def delete_shipment(id):
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'danger')
     return redirect('/view_shipments')
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'logged_in' not in session:
-            flash("Please log in to access this page", category="error")
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return decorated_function
 
 @app.route('/add_shipment', methods=['GET', 'POST'])
 @login_required
@@ -102,35 +111,51 @@ def add_shipment():
           'height': height,
           'weight': weight
       })
+
+      # Generate a unique shipment ID
+      shipment_id = generate_unique_shipment_id()
+        
     shipment_data = {
-      'shipper_name': ship_name,
-      'shipper_phone': ship_phone,
-      'shipper_address': ship_address,
-      'shipper_email': ship_email,
-      'shipper_gst': ship_gst,
-      'receiver_name': rec_name,
-      'receiver_phone': rec_phone,
-      'receiver_address': rec_address,
-      'receiver_email': rec_email,
-      'shipment_type': ship_type,
-      'unit_count': unit_count,
-      'box_count': box_count,
-      'po_number': po_number,
-      'po_expiry': po_expiry,
-      'invoice_number': invoice_number,
-      'invoice_value': invoice_value,
-      'amount_collected': amount_collected,
-      'cn_number': cn_number,
-      'appointment_number': apt_number,
-      'container': container,
-      'packages': packages
+        'shipment_id': shipment_id,
+        'shipper_name': ship_name,
+        'shipper_phone': ship_phone,
+        'shipper_address': ship_address,
+        'shipper_email': ship_email,
+        'shipper_gst': ship_gst,
+        'receiver_name': rec_name,
+        'receiver_phone': rec_phone,
+        'receiver_address': rec_address,
+        'receiver_email': rec_email,
+        'receiver_pin': rec_pin,
+        'shipment_type': ship_type,
+        'unit_count': unit_count,
+        'box_count': box_count,
+        'po_number': po_number,
+        'po_expiry': po_expiry,
+        'invoice_number': invoice_number,
+        'invoice_value': invoice_value,
+        'amount_collected': amount_collected,
+        'cn_number': cn_number,
+        'appointment_number': apt_number,
+        'apt_date': apt_date,
+        'ass_branch': ass_branch,
+        'client': client,
+        'agent': agent,
+        'branch_man':branch_man,
+        'driver':driver,
+        'container': container,
+        'packages': packages,
+        'date':date,
+        'time':time,
+        'location':location,
+        'status':status
     }
 
     # Assuming you have a Firestore collection called 'shipments'
     shipments_ref.add(shipment_data)
     return redirect('/view_shipments')
 
-  return render_template('new.html')
+  return render_template('add_shipment.html')
 
 @app.route('/view_shipments', methods=['GET', 'POST'])
 @login_required
