@@ -2,8 +2,8 @@
 {% block title %} Edit Shipment {% endblock %}
 {% block content %}
 <div class="container">
-    <h2 class="my-4">Edit Shipment</h2>
-    <form method="POST" action="{{ url_for('edit_shipment', id=id) }}">
+    <h2 class="text-center bg-danger text-white pb-1">Edit Shipment</h2>
+    <form method="POST" action="{{ url_for('edit_shipment', id=id) }}" class="mt-5">
         <h5>Shipper Information</h5>
         <div class="form-group">
             <label for="shipperName">Shipper Name</label>
@@ -21,86 +21,94 @@
         <h5>Additional Shipment Details</h5>
         <!-- additional shipment details fields -->
 
-        <h5>Packages</h5>
-        <div id="package-container">
-            {% for package in shipment.packages %}
-            <div class="form-row package-item mb-2">
-                <div class="col">
-                    <label>Qty</label>
-                    <input type="text" class="form-control" name="qty[]" value="{{ package.qty }}">
-                </div>
-                <div class="col">
-                    <label>Piece Type</label>
-                    <input type="text" class="form-control" name="pieceType[]" value="{{ package.piece_type }}">
-                </div>
-                <div class="col">
-                    <label>Description</label>
-                    <input type="text" class="form-control" name="description[]" value="{{ package.description }}">
-                </div>
-                <div class="col">
-                    <label>Length(cm)</label>
-                    <input type="text" class="form-control" name="length[]" value="{{ package.length }}">
-                </div>
-                <div class="col">
-                    <label>Width(cm)</label>
-                    <input type="text" class="form-control" name="width[]" value="{{ package.width }}">
-                </div>
-                <div class="col">
-                    <label>Height(cm)</label>
-                    <input type="text" class="form-control" name="height[]" value="{{ package.height }}">
-                </div>
-                <div class="col">
-                    <label>Weight(kg)</label>
-                    <input type="text" class="form-control" name="weight[]" value="{{ package.weight }}">
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <button type="button" class="btn btn-secondary mb-3" onclick="addPackage()">Add Package</button>
+        <h3>Packages</h3>
+          <div id="packages" class="row">
+              <!-- Package Inputs -->
+              <div class="form-group col-md-2">
+                  <label for="qty">Qty</label>
+                  <input type="number" class="form-control" id="qty" name="qty[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="pieceType">Piece Type</label>
+                  <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" id="description" name="description[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="length">Length (cm)</label>
+                  <input type="number" class="form-control" id="length" name="length[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="width">Width (cm)</label>
+                  <input type="number" class="form-control" id="width" name="width[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="height">Height (cm)</label>
+                  <input type="number" class="form-control" id="height" name="height[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="weight">Weight (kg)</label>
+                  <input type="number" class="form-control" id="weight" name="weight[]">
+              </div>
 
-        <h5>Shipment History</h5>
+          </div>
+          <button type="button" class="m-3" onclick="addPackage()">Add Package</button>
+
+        <!-- <h5>Shipment History</h5> -->
         <!-- shipment history fields -->
 
-        <button type="submit" class="btn btn-primary">Update Shipment</button>
+        <br><button type="submit" class="btn btn-primary">Update Shipment</button>
     </form>
 </div>
 
 <script>
-function addPackage() {
-    const container = document.getElementById('package-container');
-    const newItem = document.createElement('div');
-    newItem.className = 'form-row package-item mb-2';
-    newItem.innerHTML = `
-        <div class="col">
-            <label>Qty</label>
-            <input type="text" class="form-control" name="qty[]" value="">
-        </div>
-        <div class="col">
-            <label>Piece Type</label>
-            <input type="text" class="form-control" name="pieceType[]" value="">
-        </div>
-        <div class="col">
-            <label>Description</label>
-            <input type="text" class="form-control" name="description[]" value="">
-        </div>
-        <div class="col">
-            <label>Length(cm)</label>
-            <input type="text" class="form-control" name="length[]" value="">
-        </div>
-        <div class="col">
-            <label>Width(cm)</label>
-            <input type="text" class="form-control" name="width[]" value="">
-        </div>
-        <div class="col">
-            <label>Height(cm)</label>
-            <input type="text" class="form-control" name="height[]" value="">
-        </div>
-        <div class="col">
-            <label>Weight(kg)</label>
-            <input type="text" class="form-control" name="weight[]" value="">
-        </div>
-    `;
-    container.appendChild(newItem);
-}
+    function deletePackage(button) {
+        // Get the parent row of the delete button
+        var packageRow = button.parentElement.parentElement;
+        // Remove the parent row
+        packageRow.remove();
+      }
+      function addPackage() {
+          var packageDiv = document.getElementById('packages');
+          var newPackage = document.createElement('div');
+          newPackage.className = 'row';
+
+          newPackage.innerHTML = `
+              <div class="form-group col-md-2">
+                  <label for="qty">Qty</label>
+                  <input type="number" class="form-control" id="qty" name="qty[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="pieceType">Piece Type</label>
+                  <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" id="description" name="description[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="length">Length (cm)</label>
+                  <input type="number" class="form-control" id="length" name="length[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="width">Width (cm)</label>
+                  <input type="number" class="form-control" id="width" name="width[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="height">Height (cm)</label>
+                  <input type="number" class="form-control" id="height" name="height[]">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="weight">Weight (kg)</label>
+                  <input type="number" class="form-control" id="weight" name="weight[]">
+              </div>
+              <div class="form-group col-md-2 align-self-end">
+                  <button type="button" class="btn btn-danger mt-auto" onclick="deletePackage(this)">Delete</button>
+              </div>
+          `;
+          packageDiv.appendChild(newPackage);
+      }
 </script>
 {% endblock %}

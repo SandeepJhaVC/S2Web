@@ -2,7 +2,6 @@ from flask import Flask, flash, render_template, request, redirect, url_for, ses
 import firebase_admin
 from firebase_admin import credentials, db, auth, firestore
 import os
-from models import Shipment
 from functools import wraps
 import random
 import string
@@ -22,7 +21,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'logged_in' not in session:
-            flash("Please log in to access this page", category="error")
+            flash("Please log in to access this page", 'danger')
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -52,147 +51,147 @@ def delete_shipment(id):
 @app.route('/add_shipment', methods=['GET', 'POST'])
 @login_required
 def add_shipment():
-  if request.method == 'POST':
-    # Retrieve form data
-    ship_name = request.form.get('shipName')
-    ship_phone = request.form.get('shipPhone')
-    ship_address = request.form.get('shipAddress')
-    ship_email = request.form.get('shipEmail')
-    ship_gst = request.form.get('shipGST')
-
-    rec_name = request.form.get('recName')
-    rec_phone = request.form.get('recPhone')
-    rec_address = request.form.get('recAddress')
-    rec_email = request.form.get('recEmail')
-    rec_pin = request.form.get('recPin')
-
-    ship_type = request.form.get('shipType')
-    unit_count = request.form.get('unitCount')
-    box_count = request.form.get('boxCount')
-    po_number = request.form.get('poNumber')
-    po_expiry = request.form.get('poExpiry')
-    invoice_number = request.form.get('invoiceNumber')
-    invoice_value = request.form.get('invoiceValue')
-    amount_collected = request.form.get('amountCollected')
-    cn_number = request.form.get('cnNumber')
-    apt_number = request.form.get('aptNumber')
-    apt_date = request.form.get('aptDate')
-
-    ass_branch = request.form.get('ass_branch')
-
-    client = request.form.get('client')
-    agent = request.form.get('agent')
-    branch_man = request.form.get('branchMan')
-    driver = request.form.get('driver')
-    
-    container = request.form.get('container')
-    
-    date = request.form.get('date')
-    time = request.form.get('time')
-    location = request.form.get('location')
-    status = request.form.get('status')
-    
-    packages = []
-    for qty, piece_type, description, length, width, height, weight in zip(
-        request.form.getlist('qty[]'), 
-        request.form.getlist('pieceType[]'), 
-        request.form.getlist('description[]'), 
-        request.form.getlist('length[]'), 
-        request.form.getlist('width[]'), 
-        request.form.getlist('height[]'), 
-        request.form.getlist('weight[]')
-    ):
-      packages.append({
-          'qty': qty,
-          'piece_type': piece_type,
-          'description': description,
-          'length': length,
-          'width': width,
-          'height': height,
-          'weight': weight
-      })
-
-      # Generate a unique shipment ID
-      shipment_id = generate_unique_shipment_id()
+    if request.method == 'POST':
+        # Retrieve form data
+        ship_name = request.form.get('shipName')
+        ship_phone = request.form.get('shipPhone')
+        ship_address = request.form.get('shipAddress')
+        ship_email = request.form.get('shipEmail')
+        ship_gst = request.form.get('shipGST')
         
-    shipment_data = {
-        'shipment_id': shipment_id,
-        'shipper_name': ship_name,
-        'shipper_phone': ship_phone,
-        'shipper_address': ship_address,
-        'shipper_email': ship_email,
-        'shipper_gst': ship_gst,
-        'receiver_name': rec_name,
-        'receiver_phone': rec_phone,
-        'receiver_address': rec_address,
-        'receiver_email': rec_email,
-        'receiver_pin': rec_pin,
-        'shipment_type': ship_type,
-        'unit_count': unit_count,
-        'box_count': box_count,
-        'po_number': po_number,
-        'po_expiry': po_expiry,
-        'invoice_number': invoice_number,
-        'invoice_value': invoice_value,
-        'amount_collected': amount_collected,
-        'cn_number': cn_number,
-        'appointment_number': apt_number,
-        'apt_date': apt_date,
-        'ass_branch': ass_branch,
-        'client': client,
-        'agent': agent,
-        'branch_man':branch_man,
-        'driver':driver,
-        'container': container,
-        'packages': packages,
-        'date':date,
-        'time':time,
-        'location':location,
-        'status':status
-    }
+        rec_name = request.form.get('recName')
+        rec_phone = request.form.get('recPhone')
+        rec_address = request.form.get('recAddress')
+        rec_email = request.form.get('recEmail')
+        rec_pin = request.form.get('recPin')
+        
+        ship_type = request.form.get('shipType')
+        unit_count = request.form.get('unitCount')
+        box_count = request.form.get('boxCount')
+        po_number = request.form.get('poNumber')
+        po_expiry = request.form.get('poExpiry')
+        invoice_number = request.form.get('invoiceNumber')
+        invoice_value = request.form.get('invoiceValue')
+        amount_collected = request.form.get('amountCollected')
+        cn_number = request.form.get('cnNumber')
+        apt_number = request.form.get('aptNumber')
+        apt_date = request.form.get('aptDate')
+        
+        ass_branch = request.form.get('ass_branch')
+        
+        client = request.form.get('client')
+        agent = request.form.get('agent')
+        branch_man = request.form.get('branchMan')
+        driver = request.form.get('driver')
+        
+        container = request.form.get('container')
+        
+        date = request.form.get('date')
+        time = request.form.get('time')
+        location = request.form.get('location')
+        status = request.form.get('status')
+        
+        packages = []
+        for qty, piece_type, description, length, width, height, weight in zip(
+            request.form.getlist('qty[]'), 
+            request.form.getlist('pieceType[]'), 
+            request.form.getlist('description[]'), 
+            request.form.getlist('length[]'), 
+            request.form.getlist('width[]'), 
+            request.form.getlist('height[]'), 
+            request.form.getlist('weight[]')
+        ):
+          packages.append({
+              'qty': qty,
+              'piece_type': piece_type,
+              'description': description,
+              'length': length,
+              'width': width,
+              'height': height,
+              'weight': weight
+          })
+        
+          # Generate a unique shipment ID
+          shipment_id = generate_unique_shipment_id()
+            
+        shipment_data = {
+            'shipment_id': shipment_id,
+            'shipper_name': ship_name,
+            'shipper_phone': ship_phone,
+            'shipper_address': ship_address,
+            'shipper_email': ship_email,
+            'shipper_gst': ship_gst,
+            'receiver_name': rec_name,
+            'receiver_phone': rec_phone,
+            'receiver_address': rec_address,
+            'receiver_email': rec_email,
+            'receiver_pin': rec_pin,
+            'shipment_type': ship_type,
+            'unit_count': unit_count,
+            'box_count': box_count,
+            'po_number': po_number,
+            'po_expiry': po_expiry,
+            'invoice_number': invoice_number,
+            'invoice_value': invoice_value,
+            'amount_collected': amount_collected,
+            'cn_number': cn_number,
+            'appointment_number': apt_number,
+            'apt_date': apt_date,
+            'ass_branch': ass_branch,
+            'client': client,
+            'agent': agent,
+            'branch_man':branch_man,
+            'driver':driver,
+            'container': container,
+            'packages': packages,
+            'date':date,
+            'time':time,
+            'location':location,
+            'status':status
+        }
+        
+        # Assuming you have a Firestore collection called 'shipments'
+        shipments_ref.add(shipment_data)
+        return redirect('/view_shipments')
 
-    # Assuming you have a Firestore collection called 'shipments'
-    shipments_ref.add(shipment_data)
-    return redirect('/view_shipments')
-
-  return render_template('add_shipment.html')
+    return render_template('add_shipment.html')
 
 @app.route('/view_shipments', methods=['GET', 'POST'])
 @login_required
 def view_shipments():
-  status = request.args.get('status')
-  shipper_name = request.args.get('shipper_name')
-  receiver_name = request.args.get('receiver_name')
-  date_start = request.args.get('date_start')
-  date_end = request.args.get('date_end')
-  page = int(request.args.get('page', 1))
-  per_page = 10
-
-  query = shipments_ref
-
-  if status:
+    status = request.args.get('status')
+    shipper_name = request.args.get('shipper_name')
+    receiver_name = request.args.get('receiver_name')
+    date_start = request.args.get('date_start')
+    date_end = request.args.get('date_end')
+    page = int(request.args.get('page', 1))
+    per_page = 10
+    
+    query = shipments_ref
+    
+    if status:
       query = query.where('status', '==', status)
-  if shipper_name:
+    if shipper_name:
       query = query.where('shipper_name', '==', shipper_name)
-  if receiver_name:
+    if receiver_name:
       query = query.where('receiver_name', '==', receiver_name)
-  if date_start:
+    if date_start:
       query = query.where('date_created', '>=', date_start)
-  if date_end:
+    if date_end:
       query = query.where('date_created', '<=', date_end)
-
-  # Fetch documents and include the document ID in the data
-  shipments = []
-  for doc in query.stream():
+    
+    # Fetch documents and include the document ID in the data
+    shipments = []
+    for doc in query.stream():
       shipment = doc.to_dict()
       shipment['id'] = doc.id
       shipments.append(shipment)
-
-  total_shipments = len(shipments)
-  total_pages = (total_shipments + per_page - 1) // per_page
-  shipments = shipments[(page-1)*per_page:page*per_page]
-
-  return render_template('view_shipments.html', 
+    
+    total_shipments = len(shipments)
+    total_pages = (total_shipments + per_page - 1) // per_page
+    shipments = shipments[(page-1)*per_page:page*per_page]
+    
+    return render_template('view_shipments.html', 
                          shipments=shipments, 
                          page=page, 
                          total_pages=total_pages)
@@ -274,6 +273,7 @@ def login():
                 if user_data['email'] == email and user_data['password'] == password:
                     session['logged_in'] = True
                     session['user_id'] = user_id
+                    session['username'] = user_data['name']  # Store username in session
                     flash("Logged in successfully", category="success")
                     return redirect(url_for('view_shipments'))
             flash("Invalid email or password", category="error")

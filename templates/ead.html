@@ -1,66 +1,14 @@
-{% extends 'home.html' %}
+{% extends 'services.html' %}
 
 {% block title %}
-S2 Services - Ecom Appointment Delivery
+Ecom Appointment Delivery
 {% endblock %}
 
-{% block content %}
-<div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <a href="/services/express_parcel" class="btn btn-outline-primary btn-block">
-                <h5 class="mb-0">Express Parcel</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
-                <h5 class="mb-0">Truckload Freight</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/ptf" class="btn btn-outline-primary btn-block">
-                <h5 class="mb-0">Partial-Truckload Freight</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/scs" class="btn btn-outline-primary btn-block">
-                <h5 class="mb-0">Supply Chain Services</h5>
-            </a>
-        </div>
-    </div>
+{% block img1 %}<img src="/static/seller.jpg" class="img-fluid rounded" style="width:600px; height:500px">{% endblock %}
+{% block img2 %}<img src="/static/calender.png" class="img-fluid rounded" style="width:600px; height:500px">{% endblock %}
 
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <img src="/static/seller.jpg" class="img-fluid rounded" style="width:600px; height:500px">
-        </div>
-        <div class="col-md-6">
-            <img src="/static/calender.png" class="img-fluid rounded" style="width:600px; height:500px">
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>We Cover Pan India</h2>
-                    <h1>158+</h1>
-                    <h6>International Gateways</h6>
-                </div>
-                <div class="col-md-6">
-                    <h2>We Handle</h2>
-                    <h1>30k</h1>
-                    <h6>Tons Per Month</h6>
-                </div>
-            </div>
-            <div class="text-center mt-3">
-                <a href="/contact" class="btn btn-primary">Work With Us</a>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h3>ECOM APPOINTMENT DELIVERY</h3>
-            <p>We can help grow your sales with Fulfilled by Amazon (FBA) and Flipkart Assured tags. Enjoy lower shipping costs with "Forced Regional Utilisation" and zonal shipping. We provide Amazon and Flipkart approved packaging material at competitive pricing. We help enable FBA and Flipkart Assured from our facilities. Our warehouses are Flipkart Alfalite and Vendor Flex compliant, and we operate multi-client alfalite and vendor flex for our customers.</p>
-            <p>We are an enlisted logistics partner of Amazon India to provide transportation service to sellers registered for FBA facilities. We have been allocated standing appointment at Amazon FCs which means sellers need not to book an appointment as we already have standing appointment at FCs.</p>
-        </div>
-    </div>
-</div>
+{% block subcont %}
+<h3>ECOM APPOINTMENT DELIVERY</h3>
+<p>We can help grow your sales with Fulfilled by Amazon (FBA) and Flipkart Assured tags. Enjoy lower shipping costs with "Forced Regional Utilisation" and zonal shipping. We provide Amazon and Flipkart approved packaging material at competitive pricing. We help enable FBA and Flipkart Assured from our facilities. Our warehouses are Flipkart Alfalite and Vendor Flex compliant, and we operate multi-client alfalite and vendor flex for our customers.</p>
+<p>We are an enlisted logistics partner of Amazon India to provide transportation service to sellers registered for FBA facilities. We have been allocated standing appointment at Amazon FCs which means sellers need not to book an appointment as we already have standing appointment at FCs.</p>
 {% endblock %}

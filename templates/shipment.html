@@ -7,16 +7,20 @@
         <p><b>Shipment ID:</b> {{ shipment.shipment_id }}</p>
     </div>
 
-    <div class="row text-center mb-5">
-        <div class="col-md-6">
-            <h3>SHIPPER ADDRESS</h3>
-            <p>Shipper Name: {{ shipment.shipper_name }}</p>
-        </div>
-        <div class="col-md-6">
-            <h3>CONSIGNEE ADDRESS</h3>
-            <p>Receiver Name: {{ shipment.receiver_name }}</p>
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">SHIPPER ADDRESS: {{ shipment.shipper_address }}</h3>
+                <th class="text-center">CONSIGNEE ADDRESS: {{ shipment.receiver_address }}</td>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <td class="text-center">Shipper Name: {{ shipment.shipper_name }}</td>
+                <td class="text-center">Receiver Name: {{ shipment.receiver_name }}</td>
+            </tr>
+        </thead>
+    </table>
 
     <h3 class="text-center bg-danger text-white py-2">SHIPMENT STATUS: {{ shipment.status }}</h3>
 

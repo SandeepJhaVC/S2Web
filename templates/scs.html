@@ -1,67 +1,38 @@
-{% extends 'home.html' %}
+{% extends 'services.html' %}
 
 {% block title %}
 S2 Services - Supply Chain Services
 {% endblock %}
 
-{% block content %}
-<div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <a href="/services/express_parcel" class="btn btn-outline-primary btn-block">
-                <h5>Express Parcel</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
-                <h5>Truckload Freight</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/ptf" class="btn btn-outline-primary btn-block">
-                <h5>Partial-Truckload Freight</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/ead" class="btn btn-outline-primary btn-block">
-                <h5>E.A.D</h5>
-            </a>
-        </div>
+{% block links %}
+    <div class="col-md-3">
+        <a href="/services/express_parcel" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Express Parcel</h5>
+        </a>
     </div>
-
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <img src="/static/scs2.jpg" class="img-fluid rounded" style="width:600px; height:500px">
-        </div>
-        <div class="col-md-6">
-            <img src="/static/scs1.jpg" class="img-fluid rounded" style="width:600px; height:500px">
-        </div>
+    <div class="col-md-3">
+        <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Truckload Freight</h5>
+        </a>
     </div>
+    <div class="col-md-3">
+        <a href="/services/ptf" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Partial-Truckload Freight</h5>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="/services/ead" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Ecom Appointment Delivery</h5>
+        </a>
+    </div>
+  {% endblock %}
 
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>We Cover Pan India</h2>
-                    <h1>158+</h1>
-                    <h6>International Gateways</h6>
-                </div>
-                <div class="col-md-6">
-                    <h2>We Handle</h2>
-                    <h1>30k</h1>
-                    <h6>Tons Per Month</h6>
-                </div>
-            </div>
-            <div class="text-center mt-3">
-                <a href="/contact" class="btn btn-primary">Work With Us</a>
-            </div>
-        </div>
-        <div class="col-md-6">
+{% block img1 %}<img src="/static/scs2.jpg" class="img-fluid rounded" style="width:600px; height:500px">{% endblock %}
+{% block img2 %}<img src="/static/scs1.jpg" class="img-fluid rounded" style="width:600px; height:500px">{% endblock %}
+
+{% block subcont %}
             <h3>SUPPLY CHAIN SERVICES</h3>
             <p>Our end-to-end supply chain solutions combine the strength of our warehousing and transportation operations, infrastructure, network, and technology with deep data-science and business intelligence capabilities. This enables us to provide comprehensive and integrated multi-channel order fulfillment solutions that improve the reliability, speed, and cost-efficiency of our customers’ supply chains.
             <br><br>
             Additionally, we acquired Primaseller Inc. to enable D2C e-commerce brands and omnichannel retailers to integrate their online and offline channels with our logistics network. This allows us to provide a reliable order-to-delivery promise to consumers.</p>
-        </div>
-    </div>
-</div>
 {% endblock %}

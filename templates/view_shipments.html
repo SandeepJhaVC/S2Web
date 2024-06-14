@@ -1,37 +1,36 @@
 {% extends 'admin.html' %}
 {% block title %} View Shipment {% endblock %}
 {% block content %}
-<h2>View Shipments</h2>
 <!-- Filter and Search Form -->
 <form method="GET" action="{{ url_for('view_shipments') }}">
     <!-- Filter form fields -->
 </form>
 
 <!-- Shipments Table -->
-<table class="table table-success table-striped table-bordered">
+<table class="table table-primary table-striped table-bordered mt-7">
     <thead>
         <tr>
-            <th class="col">Shipment ID</th>
-            <th class="col">Shipper Name</th>
-            <th class="col">Receiver Name</th>
-            <th class="col">Container</th>
-            <th class="col">Shipment Type</th>
-            <th class="col">Status</th>
-            <th class="col">Actions</th>
+            <th class="col-1 text-center">Shipment ID</th>
+            <th class="col-2 text-center">Shipper Name</th>
+            <th class="col-2 text-center">Receiver Name</th>
+            <th class="col-2 text-center">Container</th>
+            <th class="col-2 text-center">Shipment Type</th>
+            <th class="col-1 text-center">Status</th>
+            <th class="col-2 text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for shipment in shipments %}
         <tr>
-            <td>{{ shipment.shipment_id }}</td>
-            <td>{{ shipment.shipper_name }}</td>
-            <td>{{ shipment.receiver_name }}</td>
-            <td>{{ shipment.container }}</td>
-            <td>{{ shipment.shipment_type }}</td>
-            <td>{{ shipment.status }}</td>
-            <td>
-                <a href="{{ url_for('view_shipment', id=shipment['id']) }}">View</a> |
-                <a href="{{ url_for('edit_shipment', id=shipment['id']) }}">Edit</a> |
+            <td class="text-center">{{ shipment.shipment_id }}</td>
+            <td class="text-center">{{ shipment.shipper_name }}</td>
+            <td class="text-center">{{ shipment.receiver_name }}</td>
+            <td class="text-center">{{ shipment.container }}</td>
+            <td class="text-center">{{ shipment.shipment_type }}</td>
+            <td class="text-center">{{ shipment.status }}</td>
+            <td class="text-center">
+                <a href="{{ url_for('view_shipment', id=shipment['id']) }}">View</a> <b>|</b>
+                <a href="{{ url_for('edit_shipment', id=shipment['id']) }}">Edit</a> <b>|</b>
                 <a href="{{ url_for('delete_shipment', id=shipment['id']) }}">Delete</a>
             </td>
         </tr>

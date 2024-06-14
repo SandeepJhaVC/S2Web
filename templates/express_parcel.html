@@ -1,65 +1,36 @@
-{% extends 'home.html' %}
+{% extends 'services.html' %}
 
 {% block title %}
 S2 Services - Express Parcel
 {% endblock %}
 
-{% block content %}
-<div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <a href="/services/ead" class="btn btn-outline-primary btn-block">
-                <h5>E.A.D</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
-                <h5>Truckload Freight</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/ptf" class="btn btn-outline-primary btn-block">
-                <h5>Partial-Truckload Freight</h5>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="/services/scs" class="btn btn-outline-primary btn-block">
-                <h5>Supply Chain Services</h5>
-            </a>
-        </div>
+{% block links %}
+    <div class="col-md-3">
+        <a href="/services/ead" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Ecom Appointment Delivery</h5>
+        </a>
     </div>
+    <div class="col-md-3">
+        <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Truckload Freight</h5>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="/services/ptf" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Partial-Truckload Freight</h5>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="/services/scs" class="btn btn-outline-primary btn-block">
+            <h5 class="mb-0">Supply Chain Services</h5>
+        </a>
+    </div>
+  {% endblock %}
 
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <img src="/static/box_wrap.jpg" class="img-fluid rounded" style="width:600px; height:500px">
-        </div>
-        <div class="col-md-6">
-            <img src="/static/sorting.jpg" class="img-fluid rounded" style="width:600px; height:500px">
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>We Cover Pan India</h2>
-                    <h1>158+</h1>
-                    <h6>International Gateways</h6>
-                </div>
-                <div class="col-md-6">
-                    <h2>We Handle</h2>
-                    <h1>30k</h1>
-                    <h6>Tons Per Month</h6>
-                </div>
-            </div>
-            <div class="text-center mt-3">
-                <a href="/contact" class="btn btn-primary">Work With Us</a>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h3>EXPRESS PARCEL</h3>
-            <p>Our express parcel delivery network services over 18,000 pin codes in India. We handle consignments of up to 10 kilograms with same-day and next-day capabilities and 48-96 hour deliveries for long-distance orders. Additionally, we offer heavy goods service comprising the warehousing and delivery of heavy goods, such as large electrical goods, furniture, and sports equipment, supported by our extensive pan-India network and PTL services. We also extend our express parcel services for domestic shipping through s2logistics, delivering directly to individual consumers from the comfort of their homes.</p>
-        </div>
-    </div>
-</div>
+{% block img1 %}<img src="/static/box_wrap.jpg" class="img-fluid rounded" style="width:600px; height:500px">{% endblock %}
+{% block img2 %}<img src="/static/sorting.jpg" class="img-fluid rounded" style="width:600px; height:500px">{% endblock %}
+      
+{% block subcont %}
+<h3>EXPRESS PARCEL</h3>
+<p>Our express parcel delivery network services over 18,000 pin codes in India. We handle consignments of up to 10 kilograms with same-day and next-day capabilities and 48-96 hour deliveries for long-distance orders. Additionally, we offer heavy goods service comprising the warehousing and delivery of heavy goods, such as large electrical goods, furniture, and sports equipment, supported by our extensive pan-India network and PTL services. We also extend our express parcel services for domestic shipping through s2logistics, delivering directly to individual consumers from the comfort of their homes.</p>
 {% endblock %}

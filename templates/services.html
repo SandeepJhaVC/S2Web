@@ -1,0 +1,75 @@
+{% extends 'home.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        {% block links %}
+        <div class="col-md-3">
+            <a href="/services/express_parcel" class="btn btn-outline-primary btn-block">
+                <h5 class="mb-0">Express Parcel</h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/services/truck_freight" class="btn btn-outline-primary btn-block">
+                <h5 class="mb-0">Truckload Freight</h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/services/ptf" class="btn btn-outline-primary btn-block">
+                <h5 class="mb-0">Partial-Truckload Freight</h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/services/scs" class="btn btn-outline-primary btn-block">
+                <h5 class="mb-0">Supply Chain Services</h5>
+            </a>
+        </div>
+        {% endblock %}
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {% block img1 %} {% endblock %}
+        </div>
+        <div class="col-md-6">
+            {% block img2 %} {% endblock %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center me-4" style="width: 95%;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 mb-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title"><b>We Cover Pan India</b></h3>
+                                    <p class="card-text"><h6><b>158+</b> <i class="bi bi-globe2"></i> International Gateways</h6></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title"><b>We Handle</b></h3>
+                                    <p class="card-text"><h6><b>30k</b> <i class="bi bi-truck"></i> Tons Per Month</h6></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/contact" class="btn btn-primary mt-2">
+                        <b>Work With Us</b>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% block subcont %} {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
