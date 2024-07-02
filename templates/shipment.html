@@ -4,20 +4,20 @@
 <div class="container-fluid mt-5 pt-3">
     <div class="text-center mb-4">
         <img src="{{ url_for('static', filename='s2logo.png') }}" alt="Company Logo" class="img-fluid" style="max-height: 150px;">
-        <p><b>Shipment ID:</b> {{ shipment.shipment_id }}</p>
+        <p><b>Tracking ID:</b> {{ shipment.shipment_id }}</p>
     </div>
 
     <table class="table">
         <thead>
             <tr>
-                <th class="text-center">SHIPPER ADDRESS: {{ shipment.shipper_address }}</h3>
-                <th class="text-center">CONSIGNEE ADDRESS: {{ shipment.receiver_address }}</td>
+                <th class="text-center">CONSIGNER</h3>
+                <th class="text-center">CONSIGNEE</td>
             </tr>
         </thead>
         <thead>
             <tr>
-                <td class="text-center">Shipper Name: {{ shipment.shipper_name }}</td>
-                <td class="text-center">Receiver Name: {{ shipment.receiver_name }}</td>
+                <td class="text-center">{{ shipment.shipper_name }}</td>
+                <td class="text-center">{{ shipment.receiver_name }}</td>
             </tr>
         </thead>
     </table>
@@ -25,7 +25,105 @@
     <h3 class="text-center bg-danger text-white py-2">SHIPMENT STATUS: {{ shipment.status }}</h3>
 
     <h4>ADDITIONAL SHIPMENT DETAILS</h4>
-    <p>POD as PDF: <a href="{{ shipment.pod_url }}" target="_blank"><img src="{{ shipment.pod_url }}" alt="POD" class="img-fluid" style="max-height: 100px;"></a></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">CONSIGNER</h3>
+                <th class="text-center">CONSIGNEE</td>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <td class="text-center">{{ shipment.shipper_name }}</td>
+                <td class="text-center">{{ shipment.receiver_name }}</td>
+            </tr>
+        </thead>
+    </table>
+
+    <h3 class="text-center bg-danger text-white py-2">SHIPMENT STATUS: {{ shipment.status }}</h3>
+    <table class="table table-info table-striped-columns">
+        <tbody>
+            <tr>
+                <th>
+                    PO ID
+                </th>
+                <th>
+                    {{ shipment.POID }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Pickup Location
+                </th>
+                <th>
+                    {{ shipment.pickup_location }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Pickup Date
+                </th>
+                <th>
+                    {{ shipment.pickup_date }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Pickup Remark
+                </th>
+                <th>
+                    {{ shipment.pick_rem }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    CNN
+                </th>
+                <th>
+                    {{ shipment.cn_number }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Delivery Location
+                </th>
+                <th>
+                    {{ shipment.del_locate }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Delivery Date
+                </th>
+                <th>
+                    {{ shipment.del_date }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    POD as PDF
+                </th>
+                <th>
+                    <a href="{{ shipment.pod_url }}" target="_blank"><img src="{{ shipment.pod_url }}" alt="POD" class="img-fluid" style="max-height: 100px;"></a>
+            </tr>
+            <tr>
+                <th>
+                    Delivery Vehicle
+                </th>
+                <th>
+                    {{ shipment.container }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Delivery Remark
+                </th>
+                <th>
+                    {{shipment.del_rem}}
+                </th>
+            </tr>
+        </tbody>
+    </table>
 
     <h4>PACKAGES</h4>
     <div class="table-responsive">
@@ -35,10 +133,9 @@
                     <th>Qty</th>
                     <th>Piece Type</th>
                     <th>Description</th>
-                    <th>Length (cm)</th>
-                    <th>Width (cm)</th>
-                    <th>Height (cm)</th>
-                    <th>Weight (kg)</th>
+                    <th>Actual Weight (kg)</th>
+                    <th>Volumetric Weight (kg)</th>
+                    <th>Charged Weight (kg)</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,10 +144,9 @@
                     <td>{{ package.qty }}</td>
                     <td>{{ package.piece_type }}</td>
                     <td>{{ package.description }}</td>
-                    <td>{{ package.length }}</td>
-                    <td>{{ package.width }}</td>
-                    <td>{{ package.height }}</td>
-                    <td>{{ package.weight }}</td>
+                    <td>{{ package.act_weight }}</td>
+                    <td>{{ package.vol_weight }}</td>
+                    <td>{{ package.ch_weight }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

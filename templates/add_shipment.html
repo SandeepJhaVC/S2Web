@@ -9,9 +9,9 @@
           <!-- Shipper Information -->
           <div class="col-md-6">
             <div class="card p-4 mb-4 h-100 d-flex flex-column">
-              <h3 class="mb-4">Shipper Information <i class="bi bi-person-lines-fill"></i></h3>
+              <h3 class="mb-4">Consigner Information</h3>
               <div class="mb-3">
-                <label for="shipName" class="form-label">Shipper Name</label>
+                <label for="shipName" class="form-label">Consigner Name</label>
                 <input type="text" class="form-control" id="shipName" name="shipName" required>
               </div>
               <div class="mb-3">
@@ -37,9 +37,9 @@
           <!-- Receiver Information -->
           <div class="col-md-6">
             <div class="card p-4 mb-4 h-100 d-flex flex-column">
-              <h3 class="mb-4">Receiver Information <i class="bi bi-person-lines-fill"></i></h3>
+              <h3 class="mb-4">Consignee Information</h3>
               <div class="mb-3">
-                <label for="recName" class="form-label">Receiver Name</label>
+                <label for="recName" class="form-label">Consignee Name</label>
                 <input type="text" class="form-control" id="recName" name="recName" required>
               </div>
               <div class="mb-3">
@@ -62,17 +62,43 @@
         <!-- Additional Shipment Details -->
         <div class="card p-4 mb-3">
           <!-- Remaining content unchanged -->
-          <h3>Additional Shipment Details <i class="bi bi-info-circle-fill"></i></h3>
+          <h3>Additional Shipment Details</h3>
           <div class="form-group">
-            <label for="shipmentType">Type of Shipment</label>
-            <select class="form-control" id="shipmentType" name="shipmentType" required>
-                <option>-- Select One --</option>
-                <option> DED 3 </option>
-            </select>
+            <label for="aptNumber">PO ID</label>
+            <input type="text" class="form-control" id="POID" name="POID">
+          </div>
+          <div class="form-group">
+            <label for="aptNumber">Appointment Number</label>
+            <input type="text" class="form-control" id="aptNumber" name="aptNumber">
+          </div>
+          <div class="form-group">
+            <label for="aptDate">Appointment Date</label>
+            <input type="date" class="form-control" id="aptDate" name="aptDate">
           </div>
           <div class="form-group">
             <label for="unitCount">Unit Count</label>
             <input type="number" class="form-control" id="unitCount" name="unitCount">
+          </div>
+          <div class="form-group">
+            <label for="cnNumber">CNN</label>
+            <input type="text" class="form-control" id="cnNumber" name="cnNumber">
+          </div>
+          <div class="form-group">
+            <label for="pickDate">Pickup Date</label>
+            <input type="date" class="form-control" id="pickDate" name="pickDate">
+          </div>
+          <div class="form-group">
+            <label for="pickLocate">Pickup Location</label>
+            <input type="text" class="form-control" id="pickLocate" name="pickLocate">
+          </div>
+          
+          <div class="form-group">
+            <label for="shipmentType">Type of Shipment</label>
+            <select class="form-control" id="shipmentType" name="shipmentType" required>
+                <option>-- Select One --</option>
+                <option>FTL - Full Truck Load</option>
+                <option>PTL - Part Truck Load</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="boxCount">Box Count</label>
@@ -94,54 +120,49 @@
             <label for="invoiceValue">Invoice Value</label>
             <input type="number" class="form-control" id="invoiceValue" name="invoiceValue">
           </div>
+          
           <div class="form-group">
             <label for="amountCollected">Amount Collected</label>
             <input type="number" class="form-control" id="amountCollected" name="amountCollected">
           </div>
           <div class="form-group">
-            <label for="cnNumber">CN Number</label>
-            <input type="text" class="form-control" id="cnNumber" name="cnNumber">
-          </div>
-          <div class="form-group">
-            <label for="aptNumber">Appointment Number</label>
-            <input type="text" class="form-control" id="aptNumber" name="aptNumber">
+            <label for="Route">Route</label>
+            <select class="form-control" id="Route" name="Route" required>
+                <option>-- Select One --</option>
+                <option>karan</option>
+            </select>
           </div>
         </div>
 
         <!-- Packages -->
           <div class="card p-4 mb-3">
-              <h3>Packages <i class="bi bi-box-fill"></i></h3>
+              <h3>Packages</h3>
               <div id="packages" class="row">
-                  <!-- Package Inputs -->
-                  <div class="form-group col-md-2">
-                      <label for="qty">Qty</label>
-                      <input type="number" class="form-control" id="qty" name="qty[]">
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label for="pieceType">Piece Type</label>
-                      <input type="text" class="form-control" id="pieceType" name="pieceType[]">
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label for="description">Description</label>
-                      <input type="text" class="form-control" id="description" name="description[]">
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label for="length">Length (cm)</label>
-                      <input type="number" class="form-control" id="length" name="length[]">
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label for="width">Width (cm)</label>
-                      <input type="number" class="form-control" id="width" name="width[]">
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label for="height">Height (cm)</label>
-                      <input type="number" class="form-control" id="height" name="height[]">
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label for="weight">Weight (kg)</label>
-                      <input type="number" class="form-control" id="weight" name="weight[]">
-                  </div>
-                  
+                <!-- Package Inputs -->
+                <div class="form-group col-md-2">
+                    <label for="qty">Qty</label>
+                    <input type="number" class="form-control" id="qty" name="qty[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="pieceType">Piece Type</label>
+                    <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="weight">Actual Weight (kg)</label>
+                    <input type="number" class="form-control" id="act_weight" name="act_weight[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="weight">Volumetric Weight (kg)</label>
+                    <input type="number" class="form-control" id="vol_weight" name="vol_weight[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="weight">Charged Weight (kg)</label>
+                    <input type="number" class="form-control" id="ch_weight" name="ch_weight[]">
+                </div>                  
               </div>
               <button type="button" class="m-3" onclick="addPackage()">Add Package</button>
           </div>
@@ -157,12 +178,19 @@
       <div class="col-lg-3">
         <div class="card p-4">
           <!-- Remaining content unchanged -->
-          <h3>Container Details <i class="bi bi-truck-front-fill"></i></h3>
+          <h3>Container Details</h3>
           <div class="form-group">
               <label for="container">Shipment Container</label>
               <select class="form-control" id="container" name="container">
-                  <option>-- Select Container --</option>
-                  <option> Bolero </option>
+                <option>-- Select Container --</option>
+                <option>Tata Ace</option>
+                <option>Bolero</option>
+                <option>14ft</option>
+                <option>17ft</option>
+                <option>20ft</option>
+                <option>22ft</option>
+                <option>24ft</option>
+                <option>32ft</option>
               </select>
           </div>
         </div>
@@ -185,33 +213,29 @@
 
       newPackage.innerHTML = `
           <div class="form-group col-md-2">
-              <label for="qty">Qty</label>
-              <input type="number" class="form-control" id="qty" name="qty[]">
-          </div>
-          <div class="form-group col-md-2">
-              <label for="pieceType">Piece Type</label>
-              <input type="text" class="form-control" id="pieceType" name="pieceType[]">
-          </div>
-          <div class="form-group col-md-2">
-              <label for="description">Description</label>
-              <input type="text" class="form-control" id="description" name="description[]">
-          </div>
-          <div class="form-group col-md-2">
-              <label for="length">Length (cm)</label>
-              <input type="number" class="form-control" id="length" name="length[]">
-          </div>
-          <div class="form-group col-md-2">
-              <label for="width">Width (cm)</label>
-              <input type="number" class="form-control" id="width" name="width[]">
-          </div>
-          <div class="form-group col-md-2">
-              <label for="height">Height (cm)</label>
-              <input type="number" class="form-control" id="height" name="height[]">
-          </div>
-          <div class="form-group col-md-2">
-              <label for="weight">Weight (kg)</label>
-              <input type="number" class="form-control" id="weight" name="weight[]">
-          </div>
+                    <label for="qty">Qty</label>
+                    <input type="number" class="form-control" id="qty" name="qty[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="pieceType">Piece Type</label>
+                    <input type="text" class="form-control" id="pieceType" name="pieceType[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="weight">Actual Weight (kg)</label>
+                    <input type="number" class="form-control" id="act_weight" name="act_weight[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="weight">Volumetric Weight (kg)</label>
+                    <input type="number" class="form-control" id="vol_weight" name="vol_weight[]">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="weight">Charged Weight (kg)</label>
+                    <input type="number" class="form-control" id="ch_weight" name="ch_weight[]">
+                </div>
           <div class="form-group col-md-2 align-self-end">
               <button type="button" class="btn btn-danger mt-auto" onclick="deletePackage(this)">Delete</button>
           </div>

@@ -36,8 +36,20 @@ def generate_unique_shipment_id():
 
 @app.route("/")
 def hello_world():
-  return render_template('home.html')
+    return render_template('home.html')
 
+@app.route('/track_shipment/<track_id>')
+def track_shipment(track_id):
+    # Query the collection to find the document with the given ID
+    query = shipments_ref.where('shipment_id', '==', track_id).get()
+    # Check if the document exists
+    if query:
+        for doc in query:
+            return render_template('track_shipment.html', shipment=doc.to_dict())
+
+    print("Shipment not found")
+    return 'Shipment not found', 404
+    
 @app.route('/delete_shipment/<id>', methods=['GET', 'POST'])
 def delete_shipment(id):
     try:
@@ -63,9 +75,11 @@ def add_shipment():
         rec_phone = request.form.get('recPhone')
         rec_address = request.form.get('recAddress')
         rec_email = request.form.get('recEmail')
-        rec_pin = request.form.get('recPin')
-        
+
+        PO_ID = request.form.get('POID')
         ship_type = request.form.get('shipType')
+        pick_date = request.form.get('pickDate')
+        pick_locate = request.form.get('pickLocate')
         unit_count = request.form.get('unitCount')
         box_count = request.form.get('boxCount')
         po_number = request.form.get('poNumber')
@@ -74,47 +88,35 @@ def add_shipment():
         invoice_value = request.form.get('invoiceValue')
         amount_collected = request.form.get('amountCollected')
         cn_number = request.form.get('cnNumber')
+        route = request.form.get('Route')
         apt_number = request.form.get('aptNumber')
         apt_date = request.form.get('aptDate')
         
-        ass_branch = request.form.get('ass_branch')
-        
-        client = request.form.get('client')
-        agent = request.form.get('agent')
-        branch_man = request.form.get('branchMan')
-        driver = request.form.get('driver')
-        
         container = request.form.get('container')
         
-        date = request.form.get('date')
-        time = request.form.get('time')
-        location = request.form.get('location')
-        status = request.form.get('status')
-        
         packages = []
-        for qty, piece_type, description, length, width, height, weight in zip(
+        for qty, piece_type, description, act_weight, vol_weight, ch_weight in zip(
             request.form.getlist('qty[]'), 
             request.form.getlist('pieceType[]'), 
             request.form.getlist('description[]'), 
-            request.form.getlist('length[]'), 
-            request.form.getlist('width[]'), 
-            request.form.getlist('height[]'), 
-            request.form.getlist('weight[]')
+            request.form.getlist('act_weight[]'), 
+            request.form.getlist('vol_weight[]'), 
+            request.form.getlist('ch_weight[]')
         ):
           packages.append({
               'qty': qty,
               'piece_type': piece_type,
               'description': description,
-              'length': length,
-              'width': width,
-              'height': height,
-              'weight': weight
+              'act_weight': act_weight,
+              'vol_weight': vol_weight,
+              'ch_weight': ch_weight,
           })
         
           # Generate a unique shipment ID
           shipment_id = generate_unique_shipment_id()
             
         shipment_data = {
+            'POID':PO_ID,
             'shipment_id': shipment_id,
             'shipper_name': ship_name,
             'shipper_phone': ship_phone,
@@ -125,8 +127,9 @@ def add_shipment():
             'receiver_phone': rec_phone,
             'receiver_address': rec_address,
             'receiver_email': rec_email,
-            'receiver_pin': rec_pin,
             'shipment_type': ship_type,
+            'pickup_date': pick_date,
+            'pickup_location': pick_locate,
             'unit_count': unit_count,
             'box_count': box_count,
             'po_number': po_number,
@@ -137,17 +140,9 @@ def add_shipment():
             'cn_number': cn_number,
             'appointment_number': apt_number,
             'apt_date': apt_date,
-            'ass_branch': ass_branch,
-            'client': client,
-            'agent': agent,
-            'branch_man':branch_man,
-            'driver':driver,
+            'route': route,
             'container': container,
             'packages': packages,
-            'date':date,
-            'time':time,
-            'location':location,
-            'status':status
         }
         
         # Assuming you have a Firestore collection called 'shipments'
@@ -214,47 +209,18 @@ def edit_shipment(id):
       return 'Shipment not found', 404
 
   if request.method == 'POST':
+      del_rem = request.form.get('delRem')
+      del_date = request.form.get('delDate')
+      del_locate = request.form.get('delLocate')
+      pick_rem = request.form.get('pickRem')
+      status = request.form.get('Status')
       updated_data = {
-          'shipper_name': request.form.get('shipperName'),
-          'shipper_phone': request.form.get('shipperPhone'),
-          'shipper_address': request.form.get('shipperAddress'),
-          'shipper_email': request.form.get('shipperEmail'),
-          'shipper_gst': request.form.get('shipperGST'),
-          'receiver_name': request.form.get('receiverName'),
-          'receiver_phone': request.form.get('receiverPhone'),
-          'receiver_address': request.form.get('receiverAddress'),
-          'receiver_email': request.form.get('receiverEmail'),
-          'shipment_type': request.form.get('shipmentType'),
-          'unit_count': request.form.get('unitCount'),
-          'box_count': request.form.get('boxCount'),
-          'po_number': request.form.get('poNumber'),
-          'po_expiry': request.form.get('poExpiry'),
-          'invoice_number': request.form.get('invoiceNumber'),
-          'invoice_value': request.form.get('invoiceValue'),
-          'amount_collected': request.form.get('amountCollected'),
-          'cn_number': request.form.get('cnNumber'),
-          'appointment_number': request.form.get('appointmentNumber'),
-          'container': request.form.get('container'),
-          'packages': []
+        'del_rem' : del_rem,
+        'del_date' : del_date,
+        'del_locate' : del_locate,
+        'pick_rem' : pick_rem,
+        'status' : status
       }
-      for qty, piece_type, description, length, width, height, weight in zip(
-          request.form.getlist('qty[]'), 
-          request.form.getlist('pieceType[]'), 
-          request.form.getlist('description[]'), 
-          request.form.getlist('length[]'), 
-          request.form.getlist('width[]'), 
-          request.form.getlist('height[]'), 
-          request.form.getlist('weight[]')
-      ):
-          updated_data['packages'].append({
-              'qty': qty,
-              'piece_type': piece_type,
-              'description': description,
-              'length': length,
-              'width': width,
-              'height': height,
-              'weight': weight
-          })
       shipment_ref.update(updated_data)
       return redirect(url_for('view_shipments'))
 
@@ -262,6 +228,7 @@ def edit_shipment(id):
 
 @app.route("/sign_in", methods=['GET','POST'])
 def login():
+    print("login")
     if request.method == "POST":
         email = request.form.get('email')
         password = request.form.get('password')

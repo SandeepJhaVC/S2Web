@@ -1,0 +1,111 @@
+{% extends 'home.html' %}
+{% block title %}Your Shipment{% endblock %}
+{% block content %}
+<div class="container-fluid p-5 me-5 ">
+    <div class="text-center mb-4">
+        <img src="{{ url_for('static', filename='s2logo.png') }}" alt="Company Logo" class="img-fluid" style="max-height: 150px;">
+        <p><b>Tracking ID:</b> {{ shipment.shipment_id }}</p>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">CONSIGNER</h3>
+                <th class="text-center">CONSIGNEE</td>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <td class="text-center">{{ shipment.shipper_name }}</td>
+                <td class="text-center">{{ shipment.receiver_name }}</td>
+            </tr>
+        </thead>
+    </table>
+
+    <h3 class="text-center bg-danger text-white py-2">SHIPMENT STATUS: {{ shipment.status }}</h3>
+    <table class="table table-info table-striped-columns">
+        <tbody>
+            <tr>
+                <th class="text-center">
+                    PO ID
+                </th>
+                <th class="text-center">
+                    {{ shipment.POID }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Pickup Location
+                </th>
+                <th class="text-center">
+                    {{ shipment.pickup_location }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Pickup Date
+                </th>
+                <th class="text-center">
+                    {{ shipment.pickup_date }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Pickup Remark
+                </th>
+                <th class="text-center">
+                    {{ shipment.pick_rem }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    CNN
+                </th>
+                <th class="text-center">
+                    {{ shipment.cn_number }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Delivery Location
+                </th>
+                <th class="text-center">
+                    {{ shipment.del_locate }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Delivery Date
+                </th>
+                <th class="text-center">
+                    {{ shipment.del_date }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    POD as PDF
+                </th>
+                <th class="text-center">
+                    <a href="{{ shipment.pod_url }}" target="_blank"><img src="{{ shipment.pod_url }}" alt="POD" class="img-fluid" style="max-height: 100px;"></a>
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Delivery Vehicle
+                </th>
+                <th class="text-center">
+                    {{ shipment.container }}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    Delivery Remark
+                </th>
+                <th class="text-center">
+                    {{shipment.del_rem}}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
